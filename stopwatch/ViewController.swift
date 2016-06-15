@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    //MARK: Constants
+    //MARK: Color constants
     let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
     let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
 
@@ -45,6 +45,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if (motion == .MotionShake){
+            reset()
+        }
+    }
+    
     func startTimer() {
         startTime = NSDate.init(timeIntervalSinceNow: interval)
         timer = NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
@@ -57,6 +67,7 @@ class ViewController: UIViewController {
     
     func reset(){
         interval = NSTimeInterval(0)
+        timerLabel.text = stringFromTimeInterval(NSTimeInterval(0))
     }
     
     func updateTimer() {
