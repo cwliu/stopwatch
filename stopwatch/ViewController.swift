@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  stopwatch
-//
-//  Created by Taavi Rehemägi on 14/06/16.
-//  Copyright © 2016 Toggl. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -13,12 +5,12 @@ class ViewController: UIViewController {
     //MARK: Color constants
     let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
     let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-
     let nightTimerColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
     let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
 
     //MARK: Properties
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var clockFace: ClockFace!
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
@@ -72,6 +64,7 @@ class ViewController: UIViewController {
     
     func updateTimer() {
         timerLabel.text = stringFromTimeInterval(startTime.timeIntervalSinceNow)
+        clockFace.animate(getSecondsFromInterval(startTime.timeIntervalSinceNow))
     }
     
     func stringFromTimeInterval(interval:NSTimeInterval) -> String {
@@ -83,11 +76,24 @@ class ViewController: UIViewController {
         return String(format: "%0.2d:%0.2d:%0.2d:%0.3d",hours,minutes,seconds,ms)
     }
     
+    func getSecondsFromInterval(interval: NSTimeInterval) -> Double {
+        let sharpSeconds = Double(abs(interval) % 60)
+        return Double(sharpSeconds).roundToPlaces(1)
+    }
+    
     func setColors() {
         let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
         let isDay = hour < 20 && hour > 8
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
         timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
     }
+    
 }
 
+extension Double {
+    /// Rounds the double to decimal places value
+    func roundToPlaces(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return round(self * divisor) / divisor
+    }
+}
