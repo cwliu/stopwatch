@@ -10,6 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //MARK: Constants
+    let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
+    let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
+
+    let nightTimerColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
+    let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
+
     //MARK: Properties
     @IBOutlet weak var timerLabel: UILabel!
     
@@ -22,18 +29,15 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    let daycolor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
-    let nightColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-    
     var timer = NSTimer()
     var startTime = NSDate()
     var interval = NSTimeInterval(0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = daycolor
-        timerLabel.text = "00:00:00:000"
+        
+        setColors()
+        timerLabel.text = stringFromTimeInterval(NSTimeInterval(0))
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +71,12 @@ class ViewController: UIViewController {
         let hours = (ti / 3600)
         return String(format: "%0.2d:%0.2d:%0.2d:%0.3d",hours,minutes,seconds,ms)
     }
-
+    
+    func setColors() {
+        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        let isDay = hour < 20 && hour > 8
+        self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
+        timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
+    }
 }
 
