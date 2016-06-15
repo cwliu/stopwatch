@@ -23,18 +23,25 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b59-m4-bI5" customClass="ClockFace" customModule="stopwatch" customModuleProvider="target">
+                                <rect key="frame" x="130" y="130" width="340" height="340"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="KHB-63-Cnz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1y1-Hy-S13"/>
+                            <constraint firstItem="b59-m4-bI5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Rte-QP-K0V"/>
                             <constraint firstItem="KHB-63-Cnz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jo7-je-qCH"/>
+                            <constraint firstItem="b59-m4-bI5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z2O-ev-ODx"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WMq-th-jD9" appends="YES" id="gDC-Fd-eUe"/>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="clockFace" destination="b59-m4-bI5" id="THi-ZS-TE2"/>
                         <outlet property="timerLabel" destination="KHB-63-Cnz" id="s70-on-P6a"/>
                     </connections>
                 </viewController>
