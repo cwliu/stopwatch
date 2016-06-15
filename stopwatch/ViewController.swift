@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     func startTimer() {
         startTime = NSDate.init(timeIntervalSinceNow: interval)
-        timer = NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
     }
     
     func stopTimer() {
@@ -70,11 +70,11 @@ class ViewController: UIViewController {
     
     func stringFromTimeInterval(interval:NSTimeInterval) -> String {
         let ti = NSInteger(abs(interval))
-        let ms = Int((abs(interval) % 1) * 1000)
+        let ms = Int((abs(interval) % 1) * 10)
         let seconds = ti % 60
         let minutes = (ti / 60) % 60
         let hours = (ti / 3600)
-        return String(format: "%0.2d:%0.2d:%0.2d:%0.3d",hours,minutes,seconds,ms)
+        return String(format: "%0.2d:%0.2d:%0.2d:%0.1d",hours,minutes,seconds,ms)
     }
     
     func getSecondsFromInterval(interval: NSTimeInterval) -> Double {
