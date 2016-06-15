@@ -37,6 +37,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setColors()
+        makeTimerLabelMonospaced()
         timerLabel.text = stringFromTimeInterval(NSTimeInterval(0))
     }
 
@@ -88,6 +89,11 @@ class ViewController: UIViewController {
         let isDay = hour < 20 && hour > 8
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
         timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
+    }
+    
+    func makeTimerLabelMonospaced() {
+        let font = timerLabel.font
+        timerLabel.font = UIFont.monospacedDigitSystemFontOfSize(font.pointSize, weight: UIFontWeightUltraLight)
     }
 }
 
