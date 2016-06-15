@@ -25,16 +25,25 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="KHB-63-Cnz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1y1-Hy-S13"/>
                             <constraint firstItem="KHB-63-Cnz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jo7-je-qCH"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="WMq-th-jD9" appends="YES" id="gDC-Fd-eUe"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="timerLabel" destination="KHB-63-Cnz" id="s70-on-P6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="WMq-th-jD9">
+                    <connections>
+                        <action selector="timerAction:" destination="BYZ-38-t0r" id="fc0-5i-Hly"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="418"/>
         </scene>
