@@ -7,6 +7,11 @@ class ViewController: UIViewController {
     let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
     let nightTimerColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
     let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
+    // pulse
+    let pulseColorExt = UIColor.grayColor()
+    let pulseColorInt = UIColor.redColor()
+    let pulseRadExt : Float = 50.0
+    let pulseRadInt : Float = 30.0
 
     //MARK: Properties
     @IBOutlet weak var timerLabel: Timer!
@@ -24,6 +29,12 @@ class ViewController: UIViewController {
         setColors()
         settings = UserSettings()
         timerLabel.clockFace = clockFace
+        
+        // fake code to add Pulse
+        let pulse = Pulse (colorExt: pulseColorExt, colorInt: pulseColorInt, radExt: pulseRadExt, radInt: pulseRadInt)
+        pulse.center = CGPoint (x: self.view.center.x, y: self.view.center.y + 90)
+        self.view.addSubview(pulse)
+        
     }
 
     override func didReceiveMemoryWarning() {
