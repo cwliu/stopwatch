@@ -9,28 +9,18 @@ class ViewController: UIViewController {
     let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
 
     //MARK: Properties
-    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var timerLabel: Timer!
     @IBOutlet weak var clockFace: ClockFace!
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
-        if(timer.valid){
-            stopTimer()
-        }else{
-            startTimer()
-        }
+        timerLabel.startOrStop()
     }
-    
-    var timer = NSTimer()
-    var startTime = NSDate()
-    var interval = NSTimeInterval(0)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setColors()
-        makeTimerLabelMonospaced()
-        timerLabel.text = stringFromTimeInterval(NSTimeInterval(0))
+        timerLabel.clockFace = clockFace
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,42 +34,8 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if (motion == .MotionShake){
-            reset()
+            timerLabel.reset()
         }
-    }
-    
-    func startTimer() {
-        startTime = NSDate.init(timeIntervalSinceNow: interval)
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
-    }
-    
-    func stopTimer() {
-        interval += startTime.timeIntervalSinceNow - interval
-        timer.invalidate()
-    }
-    
-    func reset(){
-        interval = NSTimeInterval(0)
-        timerLabel.text = stringFromTimeInterval(NSTimeInterval(0))
-    }
-    
-    func updateTimer() {
-        timerLabel.text = stringFromTimeInterval(startTime.timeIntervalSinceNow)
-        clockFace.animate(getSecondsFromInterval(startTime.timeIntervalSinceNow))
-    }
-    
-    func stringFromTimeInterval(interval:NSTimeInterval) -> String {
-        let ti = NSInteger(abs(interval))
-        let ms = Int((abs(interval) % 1) * 10)
-        let seconds = ti % 60
-        let minutes = (ti / 60) % 60
-        let hours = (ti / 3600)
-        return String(format: "%0.2d:%0.2d:%0.2d:%0.1d",hours,minutes,seconds,ms)
-    }
-    
-    func getSecondsFromInterval(interval: NSTimeInterval) -> Double {
-        let sharpSeconds = Double(abs(interval) % 60)
-        return Double(sharpSeconds).roundToPlaces(1)
     }
     
     func setColors() {
@@ -88,17 +44,6 @@ class ViewController: UIViewController {
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
         timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
     }
-    
-    func makeTimerLabelMonospaced() {
-        let font = timerLabel.font
-        timerLabel.font = UIFont.monospacedDigitSystemFontOfSize(font.pointSize, weight: UIFontWeightUltraLight)
-    }
 }
 
-extension Double {
-    /// Rounds the double to decimal places value
-    func roundToPlaces(places:Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return round(self * divisor) / divisor
-    }
-}
+

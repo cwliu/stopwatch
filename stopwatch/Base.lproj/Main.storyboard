@@ -17,16 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHB-63-Cnz">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b59-m4-bI5" customClass="ClockFace" customModule="stopwatch" customModuleProvider="target">
+                                <rect key="frame" x="130" y="130" width="340" height="340"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHB-63-Cnz" customClass="Timer" customModule="stopwatch" customModuleProvider="target">
                                 <rect key="frame" x="189" y="266" width="223" height="67"/>
                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="56"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b59-m4-bI5" customClass="ClockFace" customModule="stopwatch" customModuleProvider="target">
-                                <rect key="frame" x="130" y="130" width="340" height="340"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -42,7 +42,7 @@
                     </view>
                     <connections>
                         <outlet property="clockFace" destination="b59-m4-bI5" id="THi-ZS-TE2"/>
-                        <outlet property="timerLabel" destination="KHB-63-Cnz" id="s70-on-P6a"/>
+                        <outlet property="timerLabel" destination="KHB-63-Cnz" id="FyP-no-iq8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
