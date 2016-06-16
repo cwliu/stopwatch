@@ -43,7 +43,7 @@ class Timer: UILabel {
     }
     
     func reset() {
-        interval = NSTimeInterval(0)
+        startTime = NSDate()
         tick()
         if let clock = clockFace {
             clock.hidden = true //TODO: Animate closed
