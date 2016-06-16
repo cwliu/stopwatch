@@ -7,16 +7,13 @@ class ClockFace: UIView {
     var clockHand = CAShapeLayer()
     var midLayer = CALayer()
     var centerDot = CALayer()
-    var currentSeconds = 0.0;
+    var currentSeconds = 0.0
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clearColor()
-        let path = CGPathCreateMutable()
-        CGPathMoveToPoint(path, nil, 0, 0)
-        CGPathAddLineToPoint(path, nil, 0, -2)
+        clockHand.path = getHandPath(extended: false)
         clockHand.strokeColor = UIColor.blackColor().CGColor
-        clockHand.path = path
         clockHand.lineWidth = 0.01
         midLayer.addSublayer(clockHand)
         midLayer.setAffineTransform(CGAffineTransform.init(a: frame.width/4.0, b: 0, c: 0, d: frame.height / 4.0, tx: frame.width / 2.0, ty: frame.height / 2.0))
@@ -29,10 +26,17 @@ class ClockFace: UIView {
         layer.addSublayer(centerDot)
     }
     
+    func getHandPath(extended extended : Bool) -> CGPath {
+        let path = CGPathCreateMutable()
+        CGPathMoveToPoint(path, nil, 0, 0)
+        CGPathAddLineToPoint(path, nil, 0, extended ? -2 : 0)
+        return path
+    }
+    
     func animate(seconds: Double) {
         
-        if(seconds == currentSeconds) { //don't run the animation on every call (run it 10 times a second).
-            return;
+        if seconds == currentSeconds { //don't run the animation on every call (run it 10 times a second).
+            return
         }
         currentSeconds = seconds;
         
@@ -42,24 +46,45 @@ class ClockFace: UIView {
     }
     
     func scaleDot(size : CGFloat) {
-        self.centerDot.animate(
-            duration: 0.3, delay: 1,
-            timingFunction: CAMediaTimingFunction(controlPoints: 1, 1.7, 0.5, 1),
-            animation: { (layer) -> Void in
-                layer.position = CGPointMake(self.frame.width / 2, self.frame.height / 2)
-                layer.bounds = CGRect(x: 0, y: 0, width: size, height: size)
-                layer.cornerRadius = size / 2
+        centerDot.position = CGPointMake(self.frame.width / 2, self.frame.height / 2)
+        centerDot.bounds = CGRect(x: 0, y: 0, width: size, height: size)
+        centerDot.cornerRadius = size / 2
+    }
+    
+    func hide() {
+        animateLayer(clockHand,
+            duration: 0.4,
+            animation: { layer in
+                layer.path = self.getHandPath(extended: false)
+            },
+            properties: "path"
+        )
+        animateLayer(centerDot,
+                     duration: 0.4, delay: 0.25,
+                     timingFunction: CAMediaTimingFunction(controlPoints: 0.4, 0, 1, 1),
+                     animation: { layer in
+                        self.scaleDot(0)
             }, properties: "position", "bounds", "cornerRadius"
         )
     }
     
-    func hide() {
-        scaleDot(0)
-    }
-    
     func show() {
         hidden = false
-        scaleDot(dotWidth)
+        animateLayer(clockHand,
+            duration: 1, delay: 0.7,
+            timingFunction: CAMediaTimingFunction(controlPoints: 0, 1, 1, 1),
+            animation: { layer in
+                layer.path = self.getHandPath(extended: true)
+            },
+            properties: "path"
+        )
+        animateLayer(centerDot,
+                     duration: 0.5,
+                     timingFunction: CAMediaTimingFunction(controlPoints: 0, 2, 0.5, 1),
+                     animation: { layer in
+                        self.scaleDot(self.dotWidth)
+            }, properties: "position", "bounds", "cornerRadius"
+        )
     }
 }
 

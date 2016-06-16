@@ -11,35 +11,28 @@ extension Double {
 }
 
 
-extension CALayer {
-    
-    func animate(duration duration : Double, timingFunction : CAMediaTimingFunction? = nil,
-                          animation : CALayer -> Void, properties : String...) {
-        self.animate(duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
+func animateLayer<T : CALayer>(layer : T, duration : Double, timingFunction : CAMediaTimingFunction? = nil,
+             animation : T -> Void, properties : String...) {
+    animateLayer(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
+}
+func animateLayer<T : CALayer>(layer : T, duration : Double, delay : Double, timingFunction : CAMediaTimingFunction? = nil,
+             animation : T -> Void, properties : String...) {
+    NSTimer.schedule(delay: delay) { timer in
+        animateLayer(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
     }
-    
-    func animate(duration duration : Double, delay : Double, timingFunction : CAMediaTimingFunction? = nil,
-                          animation : CALayer -> Void, properties : String...) {
-        NSTimer.schedule(delay: delay) { timer in
-            self.animate(duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
+}
+func animateLayer<T : CALayer>(layer : T, duration : Double, timingFunction : CAMediaTimingFunction? = nil,
+             animation : T -> Void, properties : [String]) {
+    CATransaction.setDisableActions(true)
+    animation(layer)
+    for property in properties {
+        let anim = CABasicAnimation(keyPath: property)
+        if let f = timingFunction {
+            anim.timingFunction = f
         }
+        anim.duration = duration
+        layer.addAnimation(anim, forKey: nil)
     }
-    
-    private func animate(duration duration : Double, timingFunction : CAMediaTimingFunction? = nil,
-                                  animation : CALayer -> Void, properties : [String]) {
-        CATransaction.setDisableActions(true)
-        animation(self)
-        for property in properties {
-            let anim = CABasicAnimation(keyPath: property)
-            if let f = timingFunction {
-                anim.timingFunction = f
-            }
-            anim.duration = duration
-            self.addAnimation(anim, forKey: nil)
-        }
-        
-    }
-    
 }
 
 extension NSTimer {

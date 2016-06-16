@@ -64,13 +64,13 @@ class Timer: UILabel {
         interval = startTime.timeIntervalSinceNow
         
         updateLabel()
-    }
-    
-    func updateLabel() {
         
         if let clock = clockFace {
             clock.animate(currentSeconds())
         }
+    }
+    
+    func updateLabel() {
         
         let ti = NSInteger(abs(interval))
         let ms = Int((abs(interval) % 1) * 10)
