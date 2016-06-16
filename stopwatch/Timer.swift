@@ -33,7 +33,7 @@ class Timer: UILabel {
         startTime = NSDate.init(timeIntervalSinceNow: interval)
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(Timer.tick), userInfo: nil, repeats: true)
         if let clock = clockFace {
-            clock.hidden = false //TODO: Animate open
+            clock.show()
         }
     }
 
@@ -44,9 +44,10 @@ class Timer: UILabel {
     
     func reset() {
         startTime = NSDate()
-        tick()
+        interval = NSTimeInterval(0)
+        updateLabel()
         if let clock = clockFace {
-            clock.hidden = true //TODO: Animate closed
+            clock.hide()
         }
     }
     
@@ -61,6 +62,11 @@ class Timer: UILabel {
     
     func tick() {
         interval = startTime.timeIntervalSinceNow
+        
+        updateLabel()
+    }
+    
+    func updateLabel() {
         
         if let clock = clockFace {
             clock.animate(currentSeconds())
