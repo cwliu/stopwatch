@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if (motion == .MotionShake){
+        if (motion == .MotionShake && !timerLabel.timer.valid){
             timerLabel.reset()
         }
     }
