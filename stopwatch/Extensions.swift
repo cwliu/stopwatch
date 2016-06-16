@@ -12,11 +12,14 @@ extension Double {
 
 
 extension CALayer {
-    func animate(duration : Double, animation : CALayer -> Void, properties : String...) {
+    func animate(duration duration : Double, timingFunction : CAMediaTimingFunction? = nil, animation : CALayer -> Void, properties : String...) {
         CATransaction.setDisableActions(true)
         animation(self)
         for property in properties {
             let anim = CABasicAnimation(keyPath: property)
+            if let f = timingFunction {
+                anim.timingFunction = f
+            }
             anim.duration = duration
             self.addAnimation(anim, forKey: nil)
         }

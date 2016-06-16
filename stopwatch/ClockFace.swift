@@ -43,7 +43,10 @@ class ClockFace: UIView {
     
     func scaleDot(size : CGFloat) {
         
-        centerDot.animate(0.5, animation: { (layer) -> Void in
+        centerDot.animate(
+            duration: 0.3,
+            timingFunction: CAMediaTimingFunction(controlPoints: 1, 1.7, 0.5, 1),
+            animation: { (layer) -> Void in
                 layer.position = CGPointMake(self.frame.width / 2, self.frame.height / 2)
                 layer.bounds = CGRect(x: 0, y: 0, width: size, height: size)
                 layer.cornerRadius = size / 2
