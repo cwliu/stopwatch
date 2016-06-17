@@ -5,24 +5,30 @@ class ViewController: UIViewController {
     //MARK: Color constants
     let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
     let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-    let nightTimerColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
-    let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-    // pulse
-    let pulseColorExt = UIColor.grayColor()
-    let pulseColorInt = UIColor.redColor()
-    let pulseRadExt : Float = 50.0
-    let pulseRadInt : Float = 30.0
 
     //MARK: Properties
     var timer = Timer()
+    let pulse = Pulse ()
     @IBOutlet weak var clockFace: ClockFace!
 
     var settings : UserSettings!
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
-        timer.startOrStop()
+        if(timer.isRunning()){
+            timer.stop()
+            settings.hasStopped = true
+            pulse.hidden = true
+        }else {
+            timer.start()
+            settings.hasStarted = true
+            pulse.hidden = true
+            if(!settings.hasStopped){
+                NSTimer.schedule(delay: 2, handler: { timer in self.pulse.hidden = false})
+            }
+        }
     }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,18 +38,14 @@ class ViewController: UIViewController {
         timer.initLayout()
         settings = UserSettings()
         timer.clockFace = clockFace
-        
-        // fake code to add Pulse
-        let pulse = Pulse (colorExt: pulseColorExt, colorInt: pulseColorInt, radExt: pulseRadExt, radInt: pulseRadInt)
         pulse.center = CGPoint (x: self.view.center.x, y: self.view.center.y + 90)
         self.view.addSubview(pulse)
+        if (settings.hasStarted) {
+            pulse.hidden = true
+        }
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
@@ -60,9 +62,13 @@ class ViewController: UIViewController {
     
     func setColors() {
         let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
-        let isDay = hour < 20 && hour > 8
+        let isDay = hour < 17 && hour > 8
+
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
-        timer.textColor = isDay ? dayTimerColor : nightTimerColor
+
+        timer.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
+        clockFace.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
+        pulse.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
     }
 
     func confirmReset() {
@@ -77,4 +83,6 @@ class ViewController: UIViewController {
     }
 }
 
-
+enum ColorMode {
+    case day, night
+}
