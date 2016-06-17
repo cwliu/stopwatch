@@ -9,18 +9,20 @@ class ViewController: UIViewController {
     let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
 
     //MARK: Properties
-    @IBOutlet weak var timerLabel: Timer!
+    var timer = Timer()
     @IBOutlet weak var clockFace: ClockFace!
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
-        timerLabel.startOrStop()
+        timer.startOrStop()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setColors()
-        timerLabel.clockFace = clockFace
+        timer.clockFace = clockFace
+        view.addSubview(timer)
+        timer.initLayout()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,8 +35,8 @@ class ViewController: UIViewController {
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if (motion == .MotionShake && !timerLabel.timer.valid){
-            timerLabel.reset()
+        if (motion == .MotionShake && !timer.timer.valid){
+            timer.reset()
         }
     }
     
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
         let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
         let isDay = hour < 20 && hour > 8
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
-        timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
+        timer.textColor = isDay ? dayTimerColor : nightTimerColor
     }
 }
 

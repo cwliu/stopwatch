@@ -15,6 +15,9 @@ class Timer: UILabel {
     var interval = NSTimeInterval(0)
     var secondFraction = UILabel()
     
+    var yConstraint : NSLayoutConstraint?
+    var xConstraint : NSLayoutConstraint?
+    
     var clockFace: ClockFace! {
         didSet{
             if clockFace !== oldValue {
@@ -23,10 +26,11 @@ class Timer: UILabel {
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init() {
+        super.init(frame: CGRect())
         interval = NSTimeInterval(0)
         
+        font = UIFont.monospacedDigitSystemFontOfSize(56, weight: UIFontWeightUltraLight)
         secondFraction.text = ".0"
         secondFraction.font = font
         secondFraction.textColor = textColor
@@ -36,8 +40,22 @@ class Timer: UILabel {
         secondFraction.leftAnchor.constraintEqualToAnchor(rightAnchor).active = true
         secondFraction.topAnchor.constraintEqualToAnchor(topAnchor).active = true
         
-        makeLabelMonospaced()
         updateLabel()
+        
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func initLayout() {
+        xConstraint = centerXAnchor.constraintEqualToAnchor(superview!.centerXAnchor)
+        yConstraint = centerYAnchor.constraintEqualToAnchor(superview!.centerYAnchor)
+        
+        xConstraint!.active = true
+        yConstraint!.active = true
+        
     }
 
     func start() {
@@ -47,6 +65,11 @@ class Timer: UILabel {
             clock.show()
         }
         animateSecondFractionOpacity(0.5)
+        
+        
+        self.yConstraint!.constant = 100
+        
+        UIView.animateWithDuration(1, animations: { self.superview!.layoutIfNeeded() })
     }
 
     func stop() {
@@ -102,10 +125,5 @@ class Timer: UILabel {
         if interval != NSTimeInterval(0) {
             secondFraction.text = String(format: ".%0.1d", ms)
         }
-    }
-    
-    func makeLabelMonospaced() {
-        let font = self.font
-        self.font = UIFont.monospacedDigitSystemFontOfSize(font.pointSize, weight: UIFontWeightUltraLight)
     }
 }
