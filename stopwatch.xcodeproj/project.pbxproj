@@ -16,6 +16,7 @@
 		1995B2BF1D119B2A006C57C5 /* ClockFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2BE1D119B2A006C57C5 /* ClockFace.swift */; };
 		1995B2C11D12B679006C57C5 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2C01D12B679006C57C5 /* Timer.swift */; };
 		1995B2C31D12CDE6006C57C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2C21D12CDE6006C57C5 /* Extensions.swift */; };
+		1995B2C51D13FA00006C57C5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2C41D13FA00006C57C5 /* UserSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		1995B2BE1D119B2A006C57C5 /* ClockFace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockFace.swift; sourceTree = "<group>"; };
 		1995B2C01D12B679006C57C5 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		1995B2C21D12CDE6006C57C5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1995B2C41D13FA00006C57C5 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			children = (
 				197D7EBE1D10574400646FF0 /* AppDelegate.swift */,
 				197D7EC01D10574400646FF0 /* ViewController.swift */,
+				1995B2C41D13FA00006C57C5 /* UserSettings.swift */,
 				1995B2C21D12CDE6006C57C5 /* Extensions.swift */,
 				197D7EC21D10574400646FF0 /* Main.storyboard */,
 				197D7EC51D10574400646FF0 /* Assets.xcassets */,
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1995B2C31D12CDE6006C57C5 /* Extensions.swift in Sources */,
+				1995B2C51D13FA00006C57C5 /* UserSettings.swift in Sources */,
 				197D7EC11D10574400646FF0 /* ViewController.swift in Sources */,
 				1995B2BF1D119B2A006C57C5 /* ClockFace.swift in Sources */,
 				197D7EBF1D10574400646FF0 /* AppDelegate.swift in Sources */,
