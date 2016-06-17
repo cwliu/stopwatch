@@ -8,12 +8,12 @@
     private let lastOpenedKey = "lastOpened"
     private let hasStartedKey = "hasStarted"
     private let hasStoppedKey = "hasStopped"
-    private let hasResettedKey = "hasReset"
+    private let hasResetKey = "hasReset"
 
     private lazy var defaultValues : NSDictionary = [
             self.hasStartedKey : false,
             self.hasStoppedKey : false,
-            self.hasResettedKey : false,
+            self.hasResetKey : false,
             self.lastOpenedKey: NSDate()
     ]
 
@@ -44,12 +44,12 @@
         }
     }
 
-    var hasResetted : Bool! {
+    var hasReset : Bool! {
         set{
-            defaults.setBool(newValue, forKey: hasResettedKey)
+            defaults.setBool(newValue, forKey: hasResetKey)
         }
         get {
-            return defaults.boolForKey(hasResettedKey)
+            return defaults.boolForKey(hasResetKey)
         }
     }
 
@@ -74,6 +74,6 @@
         lastOpened = defaultValues[lastOpenedKey] as! NSDate
         hasStarted = defaultValues[hasStartedKey] as! Bool
         hasStopped = defaultValues[hasStoppedKey] as! Bool
-        hasResetted = defaultValues[hasResettedKey] as! Bool
+        hasReset = defaultValues[hasResetKey] as! Bool
     }
  }

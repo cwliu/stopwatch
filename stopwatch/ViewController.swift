@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if (motion == .MotionShake && !timerLabel.timer.valid){
-            if(!settings.hasResetted){
+            if(!settings.hasReset){
                 confirmReset()
             }else {
                 timerLabel.reset()
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     func confirmReset() {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
         confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
-            self.settings.hasResetted = true
+            self.settings.hasReset = true
             self.timerLabel.reset()
             }
         ))
