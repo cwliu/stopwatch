@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if (motion == .MotionShake && !timerLabel.timer.valid){
-            timerLabel.reset()
+            confirmReset()
         }
     }
     
@@ -44,6 +44,14 @@ class ViewController: UIViewController {
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
         timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
     }
+
+    func confirmReset() {
+        let confirmDialog = UIAlertController(title: "Reset", message: "The timer will be reset. Are you sure?", preferredStyle: .Alert)
+        confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in self.timerLabel.reset()}))
+        confirmDialog.addAction(UIAlertAction(title: "Do nothing", style: .Cancel, handler: nil))
+        presentViewController(confirmDialog, animated: true, completion: nil)
+    }
+
 }
 
 
