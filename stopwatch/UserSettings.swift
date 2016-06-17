@@ -26,7 +26,7 @@
         }
     }
 
-    var hasStarted : Bool! {
+    var hasStarted : Bool {
         set{
             defaults.setBool(newValue, forKey: hasStartedKey)
         }
@@ -35,7 +35,7 @@
         }
     }
 
-    var hasStopped : Bool! {
+    var hasStopped : Bool {
         set{
             defaults.setBool(newValue, forKey: hasStoppedKey)
         }
@@ -44,7 +44,7 @@
         }
     }
 
-    var hasReset : Bool! {
+    var hasReset : Bool {
         set{
             defaults.setBool(newValue, forKey: hasResetKey)
         }

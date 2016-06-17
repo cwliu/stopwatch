@@ -10,85 +10,72 @@ import UIKit
 
 class Pulse: UIView {
 
-    var colorExt : CGColor
-    var colorInt : CGColor
-    var radExt : CGFloat
-    var radInt : CGFloat
-    
-    init(colorExt:UIColor, colorInt:UIColor, radExt:Float, radInt:Float) {
-        self.colorExt = colorExt.CGColor
-        self.colorInt = colorInt.CGColor
-        self.radExt = CGFloat (radExt)
-        self.radInt = CGFloat (radInt)
-        
-        super.init(frame: CGRect (x: 0.0, y:0.0, width: 1.0, height: 1.0))
+    let radExt = CGFloat(50)
+    let radInt = CGFloat(30)
+    let internalCircle = CAShapeLayer ()
+    let externalCircle = CAShapeLayer ()
 
+    init() {
+        super.init(frame: CGRect (x: 0.0, y:0.0, width: 1.0, height: 1.0))
         pulse()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 
     func pulse ()
     {
-        // interal
-        let internalCircle = CAShapeLayer ();
         let path = UIBezierPath ()
         path.addArcWithCenter(CGPoint.init(x:0,y:0), radius: radInt, startAngle: 0.0 * CGFloat ((M_PI/180.0)), endAngle: 360 * CGFloat((M_PI/180.0)), clockwise: true)
-
         internalCircle.path = path.CGPath
-        internalCircle.fillColor = colorInt
 
-        // external
-        let externalCircle = CAShapeLayer ()
         let staticPath = UIBezierPath ()
         staticPath.addArcWithCenter(CGPoint.init(x:0,y:0), radius: radExt, startAngle: 0.0 * CGFloat ((M_PI/180.0)), endAngle: 360 * CGFloat((M_PI/180.0)), clockwise: true)
-
         externalCircle.path = staticPath.CGPath
-        externalCircle.fillColor = colorExt
-
-        // anims
-        let bounceAlphaAnim = CAKeyframeAnimation ()
-        bounceAlphaAnim.keyPath = "opacity"
-        bounceAlphaAnim.values = [1, 0.4, 1]
 
         let bounceScaleAnim = CAKeyframeAnimation ()
         bounceScaleAnim.keyPath = "transform.scale.xy"
-        bounceScaleAnim.values = [0.5, 0.8, 0.5]
+        bounceScaleAnim.values = [0.6, 0.67, 0.6]
 
         let simpleScale = CABasicAnimation ()
         simpleScale.keyPath = "transform.scale.xy"
-        simpleScale.fromValue = 0.0
+        simpleScale.fromValue = 0.5
         simpleScale.toValue = 1.0
 
         let simpleAlpha = CABasicAnimation ()
         simpleAlpha.keyPath = "opacity"
-        simpleAlpha.fromValue = 1
+        simpleAlpha.fromValue = 0.3
         simpleAlpha.toValue = 0.0
 
-        // groups
         let internalAnimGroup = CAAnimationGroup ()
-        internalAnimGroup.animations = [bounceAlphaAnim, bounceScaleAnim]
-        internalAnimGroup.repeatCount = 1000
-        internalAnimGroup.duration = 5
+        internalAnimGroup.animations =  [bounceScaleAnim]
+        internalAnimGroup.repeatCount = .infinity
+        internalAnimGroup.duration = 2
 
         let externalAnimGroup = CAAnimationGroup ()
         externalAnimGroup.animations = [simpleScale, simpleAlpha]
-        externalAnimGroup.repeatCount = 1000
+        externalAnimGroup.repeatCount = .infinity
         externalAnimGroup.duration = 3
 
         internalCircle.addAnimation(internalAnimGroup, forKey: "scale")
         externalCircle.addAnimation(externalAnimGroup, forKey: "pulse")
 
-        self.layer.addSublayer(externalCircle)
-        self.layer.addSublayer(internalCircle)
+        layer.addSublayer(externalCircle)
+        layer.addSublayer(internalCircle)
     }
 
-    
-    
-    
-    
-    
 
+    let nightColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 0.4).CGColor
+    let dayColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 0.4).CGColor
+
+    func setColorScheme(mode: ColorMode) {
+        if(mode == ColorMode.day) {
+            internalCircle.fillColor = dayColor
+            externalCircle.fillColor = dayColor
+        } else {
+            internalCircle.fillColor = nightColor
+            externalCircle.fillColor = nightColor
+        }
+    }
 }
