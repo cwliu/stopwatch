@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     
     func setColors() {
         let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
-        let isDay = hour < 17 && hour > 8
+        let isDay = hour < 20 && hour > 8
 
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
 
