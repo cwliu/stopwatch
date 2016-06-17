@@ -13,15 +13,15 @@ extension Double {
 
 func animateLayer<T : CALayer>(layer : T, duration : Double, timingFunction : CAMediaTimingFunction? = nil,
              animation : T -> Void, properties : String...) {
-    animateLayer(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
+    animateLayerImpl(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
 }
 func animateLayer<T : CALayer>(layer : T, duration : Double, delay : Double, timingFunction : CAMediaTimingFunction? = nil,
              animation : T -> Void, properties : String...) {
     NSTimer.schedule(delay: delay) { timer in
-        animateLayer(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
+        animateLayerImpl(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
     }
 }
-func animateLayer<T : CALayer>(layer : T, duration : Double, timingFunction : CAMediaTimingFunction? = nil,
+func animateLayerImpl<T : CALayer>(layer : T, duration : Double, timingFunction : CAMediaTimingFunction? = nil,
              animation : T -> Void, properties : [String]) {
     CATransaction.setDisableActions(true)
     animation(layer)

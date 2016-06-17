@@ -13,6 +13,7 @@ class Timer: UILabel {
     var timer = NSTimer()
     var startTime = NSDate()
     var interval = NSTimeInterval(0)
+    var secondFraction = UILabel()
     
     var clockFace: ClockFace! {
         didSet{
@@ -25,8 +26,18 @@ class Timer: UILabel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         interval = NSTimeInterval(0)
+        
+        secondFraction.text = ".0"
+        secondFraction.font = font
+        secondFraction.textColor = textColor
+        secondFraction.layer.opacity = 0
+        secondFraction.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(secondFraction)
+        secondFraction.leftAnchor.constraintEqualToAnchor(rightAnchor).active = true
+        secondFraction.topAnchor.constraintEqualToAnchor(topAnchor).active = true
+        
         makeLabelMonospaced()
-        tick()
+        updateLabel()
     }
 
     func start() {
@@ -35,6 +46,7 @@ class Timer: UILabel {
         if let clock = clockFace {
             clock.show()
         }
+        animateSecondFractionOpacity(0.5)
     }
 
     func stop() {
@@ -49,6 +61,7 @@ class Timer: UILabel {
         if let clock = clockFace {
             clock.hide()
         }
+        animateSecondFractionOpacity(0)
     }
     
     func startOrStop() {
@@ -70,6 +83,12 @@ class Timer: UILabel {
         }
     }
     
+    func animateSecondFractionOpacity(opacity : Float) {
+        animateLayer(secondFraction.layer, duration: 0.3,
+                     animation: { l in l.opacity = opacity },
+                     properties: "opacity")
+    }
+    
     func updateLabel() {
         
         let ti = NSInteger(abs(interval))
@@ -78,7 +97,11 @@ class Timer: UILabel {
         let minutes = (ti / 60) % 60
         let hours = (ti / 3600)
         
-        self.text = String(format: "%0.2d:%0.2d:%0.2d:%0.1d",hours,minutes,seconds,ms)
+        text = String(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
+        
+        if interval != NSTimeInterval(0) {
+            secondFraction.text = String(format: ".%0.1d", ms)
+        }
     }
     
     func makeLabelMonospaced() {
