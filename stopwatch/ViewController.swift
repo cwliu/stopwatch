@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var timerLabel: Timer!
     @IBOutlet weak var clockFace: ClockFace!
+
+    var settings : UserSettings!
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
@@ -20,6 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setColors()
+        settings = UserSettings()
         timerLabel.clockFace = clockFace
     }
 
@@ -34,7 +37,11 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if (motion == .MotionShake && !timerLabel.timer.valid){
-            timerLabel.reset()
+            if(!settings.hasReset){
+                confirmReset()
+            }else {
+                timerLabel.reset()
+            }
         }
     }
     
@@ -43,6 +50,17 @@ class ViewController: UIViewController {
         let isDay = hour < 20 && hour > 8
         self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
         timerLabel.textColor = isDay ? dayTimerColor : nightTimerColor
+    }
+
+    func confirmReset() {
+        let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
+        confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
+            self.settings.hasReset = true
+            self.timerLabel.reset()
+            }
+        ))
+        confirmDialog.addAction(UIAlertAction(title: "Do nothing", style: .Cancel, handler: nil))
+        presentViewController(confirmDialog, animated: true, completion: nil)
     }
 }
 
