@@ -18,13 +18,18 @@ class ViewController: UIViewController {
         if(timer.isRunning()){
             timer.stop()
             settings.hasStopped = true
-            pulse.hidden = true
+            pulse.hide()
         }else {
             timer.start()
             settings.hasStarted = true
-            pulse.hidden = true
+            pulse.hide()
             if(!settings.hasStopped){
-                NSTimer.schedule(delay: 2, handler: { timer in self.pulse.hidden = false})
+                NSTimer.schedule(delay: 5, handler: { timer in
+                    if !self.timer.isRunning() {
+                        return
+                    }
+                    self.pulse.show()
+                })
             }
         }
     }
@@ -38,8 +43,13 @@ class ViewController: UIViewController {
         timer.clockFace = clockFace
         pulse.center = CGPoint (x: self.view.center.x, y: self.view.center.y + 90)
         self.view.addSubview(pulse)
-        if (settings.hasStarted) {
-            pulse.hidden = true
+        if !settings.hasStarted {
+            NSTimer.schedule(delay: 0.5, handler: { timer in
+                if self.timer.isRunning() {
+                    return
+                }
+                self.pulse.show()
+            })
         }
 
     }

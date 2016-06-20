@@ -40,12 +40,12 @@ class Pulse: UIView {
 
         let simpleScale = CABasicAnimation ()
         simpleScale.keyPath = "transform.scale.xy"
-        simpleScale.fromValue = 0.5
+        simpleScale.fromValue = 0
         simpleScale.toValue = 1.0
 
         let simpleAlpha = CABasicAnimation ()
         simpleAlpha.keyPath = "opacity"
-        simpleAlpha.fromValue = 0.3
+        simpleAlpha.fromValue = 1
         simpleAlpha.toValue = 0.0
 
         let internalAnimGroup = CAAnimationGroup ()
@@ -63,11 +63,24 @@ class Pulse: UIView {
 
         layer.addSublayer(externalCircle)
         layer.addSublayer(internalCircle)
+        
+        layer.opacity = 0
+    }
+    
+    func hide() {
+        fadeToOpacity(0)
+    }
+    
+    func show() {
+        fadeToOpacity(1)
+    }
+    
+    func fadeToOpacity(opacity : Float) {
+        animateLayer(layer, duration: 0.5, animation: { l in l.opacity = opacity }, properties: "opacity")
     }
 
-
-    let nightColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 0.4).CGColor
-    let dayColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 0.4).CGColor
+    let nightColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 0.11).CGColor
+    let dayColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 0.11).CGColor
 
     func setColorScheme(mode: ColorMode) {
         if(mode == ColorMode.day) {
