@@ -87,6 +87,7 @@ class ViewController: UIViewController {
         timer.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
         clockFace.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
         pulse.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
+        shakeView.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
     }
 
     func confirmReset() {

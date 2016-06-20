@@ -40,7 +40,7 @@ class ShakeableView: UIView {
     func shakeOnce() {
         let shakeAnimation = CABasicAnimation(keyPath: "position")
         shakeAnimation.duration = 0.05
-        shakeAnimation.repeatCount = 2
+        shakeAnimation.repeatCount = 3
         shakeAnimation.autoreverses = true
         shakeAnimation.fromValue = NSValue(CGPoint: CGPointMake(shakeable.center.x - 5, shakeable.center.y))
         shakeAnimation.toValue = NSValue(CGPoint: CGPointMake(shakeable.center.x + 5, shakeable.center.y))
