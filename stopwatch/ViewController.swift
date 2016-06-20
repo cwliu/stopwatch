@@ -8,6 +8,7 @@ class ViewController: UIViewController {
 
     //MARK: Properties
     let pulse = Pulse ()
+    let shakeView = ShakeableView()
     @IBOutlet weak var clockFace: ClockFace!
     @IBOutlet weak var timer: Timer!
 
@@ -19,7 +20,12 @@ class ViewController: UIViewController {
             timer.stop()
             settings.hasStopped = true
             pulse.hidden = true
+
+            if(!settings.hasReset){
+                NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
+            }
         }else {
+            shakeView.hide()
             timer.start()
             settings.hasStarted = true
             pulse.hidden = true
@@ -36,8 +42,13 @@ class ViewController: UIViewController {
         view.addSubview(timer)
         settings = UserSettings()
         timer.clockFace = clockFace
+        print(shakeView.bounds.size.width)
+        shakeView.center = CGPoint (x: self.view.center.x - shakeView.bounds.size.width, y: self.view.center.y + 90)
         pulse.center = CGPoint (x: self.view.center.x, y: self.view.center.y + 90)
+
+        self.view.addSubview(shakeView)
         self.view.addSubview(pulse)
+        shakeView.hide()
         if (settings.hasStarted) {
             pulse.hidden = true
         }
@@ -73,6 +84,7 @@ class ViewController: UIViewController {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
         confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
             self.settings.hasReset = true
+            self.shakeView.hide()
             self.timer.reset()
             }
         ))
