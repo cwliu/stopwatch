@@ -7,9 +7,9 @@ class ViewController: UIViewController {
     let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
 
     //MARK: Properties
-    var timer = Timer()
     let pulse = Pulse ()
     @IBOutlet weak var clockFace: ClockFace!
+    @IBOutlet weak var timer: Timer!
 
     var settings : UserSettings!
     
@@ -29,13 +29,11 @@ class ViewController: UIViewController {
         }
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setColors()
         timer.clockFace = clockFace
         view.addSubview(timer)
-        timer.initLayout()
         settings = UserSettings()
         timer.clockFace = clockFace
         pulse.center = CGPoint (x: self.view.center.x, y: self.view.center.y + 90)
