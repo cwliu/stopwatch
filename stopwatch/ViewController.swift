@@ -19,8 +19,7 @@ class ViewController: UIViewController {
         if(timer.isRunning()){
             timer.stop()
             settings.hasStopped = true
-            pulse.hidden = true
-
+            pulse.hide()
             if(!settings.hasReset){
                 NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
             }
@@ -28,9 +27,14 @@ class ViewController: UIViewController {
             shakeView.hide()
             timer.start()
             settings.hasStarted = true
-            pulse.hidden = true
+            pulse.hide()
             if(!settings.hasStopped){
-                NSTimer.schedule(delay: 2, handler: { timer in self.pulse.hidden = false})
+                NSTimer.schedule(delay: 5, handler: { timer in
+                    if !self.timer.isRunning() {
+                        return
+                    }
+                    self.pulse.show()
+                })
             }
         }
     }
@@ -49,10 +53,15 @@ class ViewController: UIViewController {
         self.view.addSubview(shakeView)
         self.view.addSubview(pulse)
         shakeView.hide()
-        if (settings.hasStarted) {
-            pulse.hidden = true
-        }
 
+        if !settings.hasStarted {
+            NSTimer.schedule(delay: 0.5, handler: { timer in
+                if self.timer.isRunning() {
+                    return
+                }
+                self.pulse.show()
+            })
+        }
     }
 
     override func canBecomeFirstResponder() -> Bool {
