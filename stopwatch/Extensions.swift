@@ -17,6 +17,12 @@ func animateLayer<T : CALayer>(layer : T, duration : Double, timingFunction : CA
 }
 func animateLayer<T : CALayer>(layer : T, duration : Double, delay : Double, timingFunction : CAMediaTimingFunction? = nil,
              animation : T -> Void, properties : String...) {
+    
+    if delay <= 0 {
+        animateLayerImpl(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
+        return;
+    }
+    
     NSTimer.schedule(delay: delay) { timer in
         animateLayerImpl(layer, duration: duration, timingFunction: timingFunction, animation: animation, properties: properties)
     }

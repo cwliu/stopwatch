@@ -25,7 +25,6 @@ class Timer: UILabel {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        interval = NSTimeInterval(0)
         
         font = UIFont.monospacedDigitSystemFontOfSize(56, weight: UIFontWeightUltraLight)
         secondFraction.text = ".0"
@@ -46,8 +45,9 @@ class Timer: UILabel {
         if let clock = clockFace {
             clock.show()
         }
-        animateSecondFractionOpacity(0.5)
+        animateSecondFractionOpacity(0.5, delay: 0)
         
+        animateTextOffset(1, duration: 0.6, delay: 0)
     }
 
     func stop() {
@@ -58,11 +58,27 @@ class Timer: UILabel {
     func reset() {
         startTime = NSDate()
         interval = NSTimeInterval(0)
-        updateLabel()
         if let clock = clockFace {
             clock.hide()
         }
-        animateSecondFractionOpacity(0)
+        animateTextOffset(0, duration: 1, delay: 0.4)
+        
+        NSTimer.schedule(delay: 0.4, handler: { timer in
+            if self.isRunning() {
+                return
+            }
+            let animation: CATransition = CATransition()
+            animation.duration = 0.3
+            animation.type = kCATransitionFade
+            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            self.layer.addAnimation(animation, forKey: "changeTextTransition")
+            self.updateLabel()
+            
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(0)
+            self.secondFraction.layer.opacity = 0
+            CATransaction.commit()
+        })
     }
 
     func isRunning() -> Bool {
@@ -84,14 +100,27 @@ class Timer: UILabel {
         }
     }
     
-    func animateSecondFractionOpacity(opacity : Float) {
-        animateLayer(secondFraction.layer, duration: 0.3,
+    func animateTextOffset(amount : Float, duration : Double, delay : Double) {
+        let a = CGFloat(amount)
+        let x = -secondFraction.frame.width / 2
+        let y = superview!.frame.height / 2 - 100 - frame.height / 2
+        
+        animateLayer(layer,
+            duration: duration, delay: delay,
+            timingFunction: CAMediaTimingFunction(controlPoints: 0.2, 0, 0, 1),
+            animation: { l in
+                l.setAffineTransform(CGAffineTransformMakeTranslation(x * a, y * a))
+            },
+            properties: "transform")
+    }
+    
+    func animateSecondFractionOpacity(opacity : Float, delay : Double) {
+        animateLayer(secondFraction.layer, duration: 0.3, delay: delay,
                      animation: { l in l.opacity = opacity },
                      properties: "opacity")
     }
     
     func updateLabel() {
-        
         let ti = NSInteger(abs(interval))
         let ms = Int((abs(interval) % 1) * 10)
         let seconds = ti % 60
@@ -100,9 +129,7 @@ class Timer: UILabel {
         
         text = String(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
         
-        if interval != NSTimeInterval(0) {
-            secondFraction.text = String(format: ".%0.1d", ms)
-        }
+        secondFraction.text = String(format: ".%0.1d", ms)
     }
 
     let nightTimerColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
