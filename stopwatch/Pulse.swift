@@ -51,11 +51,13 @@ class Pulse: UIView {
         bounceScaleAnim.keyPath = "transform.scale.xy"
         bounceScaleAnim.values = [0.6, 0.67, 0.6]
         
-        let internalAnimGroup = CAAnimationGroup ()
-        internalAnimGroup.animations =  [bounceScaleAnim]
-        internalAnimGroup.duration = 2
+        let animGroup = CAAnimationGroup ()
+        animGroup.animations =  [bounceScaleAnim]
+        animGroup.duration = 2
+        animGroup.fillMode = kCAFillModeForwards
+        animGroup.removedOnCompletion = false
         
-        internalCircle.addAnimation(internalAnimGroup, forKey: "scale")
+        internalCircle.addAnimation(animGroup, forKey: "scale")
     }
     
     func animOuterOnce() {
@@ -70,11 +72,13 @@ class Pulse: UIView {
         simpleAlpha.fromValue = 1
         simpleAlpha.toValue = 0.0
         
-        let externalAnimGroup = CAAnimationGroup ()
-        externalAnimGroup.animations = [simpleScale, simpleAlpha]
-        externalAnimGroup.duration = 3
+        let animGroup = CAAnimationGroup ()
+        animGroup.animations = [simpleScale, simpleAlpha]
+        animGroup.duration = 3
+        animGroup.fillMode = kCAFillModeForwards
+        animGroup.removedOnCompletion = false
         
-        externalCircle.addAnimation(externalAnimGroup, forKey: "pulse")
+        externalCircle.addAnimation(animGroup, forKey: "pulse")
     }
     
     func hide() {
