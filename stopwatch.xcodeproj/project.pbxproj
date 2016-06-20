@@ -17,6 +17,7 @@
 		1995B2C11D12B679006C57C5 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2C01D12B679006C57C5 /* Timer.swift */; };
 		1995B2C31D12CDE6006C57C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2C21D12CDE6006C57C5 /* Extensions.swift */; };
 		1995B2C51D13FA00006C57C5 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1995B2C41D13FA00006C57C5 /* UserSettings.swift */; };
+		19E1D6B71D15A54B0084CA57 /* ShakeableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E1D6B61D15A54B0084CA57 /* ShakeableView.swift */; };
 		3AD3C4E21D13080F00F60495 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3C4E11D13080F00F60495 /* Pulse.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		1995B2C01D12B679006C57C5 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		1995B2C21D12CDE6006C57C5 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1995B2C41D13FA00006C57C5 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		19E1D6B61D15A54B0084CA57 /* ShakeableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShakeableView.swift; sourceTree = "<group>"; };
 		3AD3C4E11D13080F00F60495 /* Pulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 				1995B2BE1D119B2A006C57C5 /* ClockFace.swift */,
 				1995B2C01D12B679006C57C5 /* Timer.swift */,
 				3AD3C4E11D13080F00F60495 /* Pulse.swift */,
+				19E1D6B61D15A54B0084CA57 /* ShakeableView.swift */,
 			);
 			path = stopwatch;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1995B2C31D12CDE6006C57C5 /* Extensions.swift in Sources */,
+				19E1D6B71D15A54B0084CA57 /* ShakeableView.swift in Sources */,
 				1995B2C51D13FA00006C57C5 /* UserSettings.swift in Sources */,
 				197D7EC11D10574400646FF0 /* ViewController.swift in Sources */,
 				1995B2BF1D119B2A006C57C5 /* ClockFace.swift in Sources */,
