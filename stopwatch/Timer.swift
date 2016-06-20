@@ -15,9 +15,6 @@ class Timer: UILabel {
     var interval = NSTimeInterval(0)
     var secondFraction = UILabel()
     
-    var yConstraint : NSLayoutConstraint?
-    var xConstraint : NSLayoutConstraint?
-    
     var clockFace: ClockFace! {
         didSet{
             if clockFace !== oldValue {
@@ -26,8 +23,8 @@ class Timer: UILabel {
         }
     }
     
-    required init() {
-        super.init(frame: CGRect())
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         interval = NSTimeInterval(0)
         
         font = UIFont.monospacedDigitSystemFontOfSize(56, weight: UIFontWeightUltraLight)
@@ -41,21 +38,6 @@ class Timer: UILabel {
         secondFraction.topAnchor.constraintEqualToAnchor(topAnchor).active = true
         
         updateLabel()
-        
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initLayout() {
-        xConstraint = centerXAnchor.constraintEqualToAnchor(superview!.centerXAnchor)
-        yConstraint = centerYAnchor.constraintEqualToAnchor(superview!.centerYAnchor)
-        
-        xConstraint!.active = true
-        yConstraint!.active = true
-        
     }
 
     func start() {
@@ -66,10 +48,6 @@ class Timer: UILabel {
         }
         animateSecondFractionOpacity(0.5)
         
-        
-        self.yConstraint!.constant = 100
-        
-        UIView.animateWithDuration(1, animations: { self.superview!.layoutIfNeeded() })
     }
 
     func stop() {
