@@ -17,14 +17,14 @@ class Pulse: UIView {
 
     init() {
         super.init(frame: CGRect (x: 0.0, y:0.0, width: 1.0, height: 1.0))
-        pulse()
+        initAnim()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    func pulse ()
+    func initAnim ()
     {
         let path = UIBezierPath ()
         path.addArcWithCenter(CGPoint.init(x:0,y:0), radius: radInt, startAngle: 0.0 * CGFloat ((M_PI/180.0)), endAngle: 360 * CGFloat((M_PI/180.0)), clockwise: true)
@@ -34,37 +34,51 @@ class Pulse: UIView {
         staticPath.addArcWithCenter(CGPoint.init(x:0,y:0), radius: radExt, startAngle: 0.0 * CGFloat ((M_PI/180.0)), endAngle: 360 * CGFloat((M_PI/180.0)), clockwise: true)
         externalCircle.path = staticPath.CGPath
 
+        layer.addSublayer(externalCircle)
+        layer.addSublayer(internalCircle)
+        
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(Pulse.animInnerOnce), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(Pulse.animOuterOnce), userInfo: nil, repeats: true)
+        animInnerOnce()
+        animOuterOnce()
+        
+        layer.opacity = 0
+    }
+    
+    func animInnerOnce() {
+        
         let bounceScaleAnim = CAKeyframeAnimation ()
         bounceScaleAnim.keyPath = "transform.scale.xy"
         bounceScaleAnim.values = [0.6, 0.67, 0.6]
-
+        
+        let animGroup = CAAnimationGroup ()
+        animGroup.animations =  [bounceScaleAnim]
+        animGroup.duration = 2
+        animGroup.fillMode = kCAFillModeForwards
+        animGroup.removedOnCompletion = false
+        
+        internalCircle.addAnimation(animGroup, forKey: "scale")
+    }
+    
+    func animOuterOnce() {
+        
         let simpleScale = CABasicAnimation ()
         simpleScale.keyPath = "transform.scale.xy"
         simpleScale.fromValue = 0
         simpleScale.toValue = 1.0
-
+        
         let simpleAlpha = CABasicAnimation ()
         simpleAlpha.keyPath = "opacity"
         simpleAlpha.fromValue = 1
         simpleAlpha.toValue = 0.0
-
-        let internalAnimGroup = CAAnimationGroup ()
-        internalAnimGroup.animations =  [bounceScaleAnim]
-        internalAnimGroup.repeatCount = .infinity
-        internalAnimGroup.duration = 2
-
-        let externalAnimGroup = CAAnimationGroup ()
-        externalAnimGroup.animations = [simpleScale, simpleAlpha]
-        externalAnimGroup.repeatCount = .infinity
-        externalAnimGroup.duration = 3
-
-        internalCircle.addAnimation(internalAnimGroup, forKey: "scale")
-        externalCircle.addAnimation(externalAnimGroup, forKey: "pulse")
-
-        layer.addSublayer(externalCircle)
-        layer.addSublayer(internalCircle)
         
-        layer.opacity = 0
+        let animGroup = CAAnimationGroup ()
+        animGroup.animations = [simpleScale, simpleAlpha]
+        animGroup.duration = 3
+        animGroup.fillMode = kCAFillModeForwards
+        animGroup.removedOnCompletion = false
+        
+        externalCircle.addAnimation(animGroup, forKey: "pulse")
     }
     
     func hide() {
