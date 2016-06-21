@@ -11,20 +11,25 @@ class ClockFace: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+
+    init() {
+        super.init(frame: CGRect (x: 0.0, y:0.0,
+            width: ClockFace.clockHandSize(),
+            height: ClockFace.clockHandSize())
+        )
 
         backgroundColor = UIColor.clearColor()
         setColorScheme(ColorMode.day)
-
         clockHand.path = getHandPath(extended: false)
         clockHand.lineWidth = 0.01
         midLayer.addSublayer(clockHand)
         midLayer.setAffineTransform(CGAffineTransform.init(a: frame.width/4.0, b: 0, c: 0, d: frame.height / 4.0, tx: frame.width / 2.0, ty: frame.height / 2.0))
         scaleDot(0)
-
         layer.addSublayer(midLayer)
         layer.addSublayer(centerDot)
     }
-    
+
     func getHandPath(extended extended : Bool) -> CGPath {
         let path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, 0, 0)
@@ -101,6 +106,23 @@ class ClockFace: UIView {
             centerDot.backgroundColor = nightDotColor.CGColor
             clockHand.strokeColor = nightHandColor.CGColor
         }
+    }
+
+    static func clockHandSize() -> Double {
+        if(AppDelegate.isIPhone5orLower()){
+            return 300.0
+        } else {
+            return 330.0
+        }
+    }
+
+    static func clockHandLocation(superView: UIView, clockFaceView: UIView) -> CGPoint {
+
+        //if small, x points from top, if large, put in center
+        if(AppDelegate.isIPhone5orLower()) {
+            return CGPointMake(superView.center.x, 64 + clockFaceView.bounds.height / 2)
+        }
+        return superView.center
     }
 }
 

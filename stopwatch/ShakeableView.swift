@@ -24,7 +24,7 @@ class ShakeableView: UIView {
             x: 0, y: 0,
             width: shakeable.image!.size.width,
             height: leftArrow.image!.size.height + shakeable.image!.size.height))
-
+        shakeable.alpha = 0.39
         shakeable.frame = CGRectMake(-(shakeView.frame.width / 2), leftArrow.image!.size.height, shakeable.image!.size.width, shakeable.image!.size.height)
         leftArrow.frame = CGRectMake(-(shakeView.frame.width / 2), 0, leftArrow.image!.size.width, leftArrow.image!.size.height)
         rightArrow.frame = CGRectMake((shakeView.frame.width / 2) - rightArrow.image!.size.width, 0, rightArrow.image!.size.width, rightArrow.image!.size.height)

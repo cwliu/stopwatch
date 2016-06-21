@@ -57,3 +57,13 @@ extension NSTimer {
         return timer
     }
 }
+
+extension AppDelegate {
+
+    class func isIphone4s () -> Bool{
+        return max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height) == 480.0
+    }
+    class func isIPhone5orLower () -> Bool{
+        return max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height) <= 568.0
+    }
+}

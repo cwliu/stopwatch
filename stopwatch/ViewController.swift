@@ -9,7 +9,7 @@ class ViewController: UIViewController {
     //MARK: Properties
     let pulse = Pulse ()
     let shakeView = ShakeableView()
-    @IBOutlet weak var clockFace: ClockFace!
+    let clockFace = ClockFace()
     @IBOutlet weak var timer: Timer!
 
     var settings : UserSettings!
@@ -42,17 +42,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setColors()
-        timer.clockFace = clockFace
         view.addSubview(timer)
+        clockFace.center = ClockFace.clockHandLocation(self.view, clockFaceView: clockFace)
+        view.addSubview(clockFace)
         settings = UserSettings()
+
         timer.clockFace = clockFace
-        print(shakeView.bounds.size.width)
         shakeView.center = CGPoint (x: self.view.center.x - shakeView.bounds.size.width, y: self.view.center.y + 90)
         pulse.center = CGPoint (x: self.view.center.x, y: self.view.center.y + 90)
+        shakeView.hide()
 
         self.view.addSubview(shakeView)
         self.view.addSubview(pulse)
-        shakeView.hide()
 
         if !settings.hasStarted {
             NSTimer.schedule(delay: 0.5, handler: { timer in
@@ -63,7 +64,6 @@ class ViewController: UIViewController {
             })
         }
     }
-
     override func canBecomeFirstResponder() -> Bool {
         return true
     }

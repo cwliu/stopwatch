@@ -17,10 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b59-m4-bI5" customClass="ClockFace" customModule="stopwatch" customModuleProvider="target">
-                                <rect key="frame" x="130" y="130" width="340" height="340"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8c-qE-Bpz" customClass="Timer" customModule="stopwatch" customModuleProvider="target">
                                 <rect key="frame" x="275" y="275" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -33,16 +29,13 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PXU-Wr-fYh"/>
-                            <constraint firstItem="b59-m4-bI5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Rte-QP-K0V"/>
                             <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ap6-yR-SDO"/>
-                            <constraint firstItem="b59-m4-bI5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z2O-ev-ODx"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WMq-th-jD9" appends="YES" id="gDC-Fd-eUe"/>
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="clockFace" destination="b59-m4-bI5" id="THi-ZS-TE2"/>
                         <outlet property="timer" destination="x8c-qE-Bpz" id="Mps-ee-iq4"/>
                     </connections>
                 </viewController>

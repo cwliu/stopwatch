@@ -1,11 +1,3 @@
-//
-//  Timer.swift
-//  stopwatch
-//
-//  Created by Taavi Rehemägi on 16/06/16.
-//  Copyright © 2016 Toggl. All rights reserved.
-//
-
 import UIKit
 
 class Timer: UILabel {
@@ -22,11 +14,13 @@ class Timer: UILabel {
             }
         }
     }
-    
+
+    let screenSize: CGRect = UIScreen.mainScreen().bounds
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        font = UIFont.monospacedDigitSystemFontOfSize(56, weight: UIFontWeightUltraLight)
+
+        font = UIFont.monospacedDigitSystemFontOfSize(Timer.timerLabelSize(), weight: UIFontWeightUltraLight)
         secondFraction.text = ".0"
         secondFraction.font = font
         secondFraction.textColor = textColor
@@ -35,7 +29,7 @@ class Timer: UILabel {
         addSubview(secondFraction)
         secondFraction.leftAnchor.constraintEqualToAnchor(rightAnchor).active = true
         secondFraction.topAnchor.constraintEqualToAnchor(topAnchor).active = true
-        
+
         updateLabel()
     }
 
@@ -103,8 +97,7 @@ class Timer: UILabel {
     func animateTextOffset(amount : Float, duration : Double, delay : Double) {
         let a = CGFloat(amount)
         let x = -secondFraction.frame.width / 2
-        let y = superview!.frame.height / 2 - 100 - frame.height / 2
-        
+        let y = CGFloat(superview!.frame.height / 2 - frame.height / 2) - Timer.timerLabelFromBottom()
         animateLayer(layer,
             duration: duration, delay: delay,
             timingFunction: CAMediaTimingFunction(controlPoints: 0.2, 0, 0, 1),
@@ -143,5 +136,23 @@ class Timer: UILabel {
             textColor = self.nightTimerColor
             secondFraction.textColor = nightTimerColor
         }
+    }
+
+    static func timerLabelSize() -> CGFloat {
+        if(AppDelegate.isIPhone5orLower())
+        {
+            return CGFloat(48)
+        }
+        return CGFloat(56)
+    }
+
+    static func timerLabelFromBottom() -> CGFloat {
+        if(AppDelegate.isIphone4s())
+        {
+            return CGFloat(24)
+        } else if (AppDelegate.isIPhone5orLower()) {
+            return CGFloat(42)
+        }
+        return CGFloat(80)
     }
 }
