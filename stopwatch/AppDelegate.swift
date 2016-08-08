@@ -13,11 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-	var colorMode: ColorMode {
+	var colorScheme: ColorScheme {
 		let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
 		let isDay = hour < 20 && hour > 8
 		
-		return isDay ? .day : .night
+		return isDay ? ColorSchemes.dayScheme : ColorSchemes.nightScheme
 	}
 	
 	static var instance: AppDelegate {
@@ -55,12 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func configureTabBarAppearance() {
 		UITabBar.appearance().barTintColor = .clearColor()
-		UITabBar.appearance().tintColor = self.colorMode == .day ? .blackColor() : .whiteColor()
+		UITabBar.appearance().tintColor = self.colorScheme.uiTintColor
 		UITabBar.appearance().backgroundImage = UIImage()
 		UITabBar.appearance().shadowImage = UIImage()
 	}
-}
-
-enum ColorMode {
-	case day, night
 }

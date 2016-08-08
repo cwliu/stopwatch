@@ -30,8 +30,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		let timer = timers[indexPath.row]
 		
 		cell?.backgroundColor = .clearColor()
-		cell?.textLabel?.textColor = AppDelegate.instance.colorMode == .day ? .blackColor() : .whiteColor()
-		cell?.detailTextLabel?.textColor = AppDelegate.instance.colorMode == .day ? .blackColor() : .whiteColor()
+		cell?.textLabel?.textColor = AppDelegate.instance.colorScheme.uiTintColor
+		cell?.detailTextLabel?.textColor = AppDelegate.instance.colorScheme.uiTintColor
 		
 		let formatter = NSDateComponentsFormatter()
 		formatter.unitsStyle = .Abbreviated
@@ -44,6 +44,6 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	}
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return AppDelegate.instance.colorMode == .day ? .Default : .LightContent
+		return AppDelegate.instance.colorScheme.statusBarStyle
 	}
 }

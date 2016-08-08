@@ -43,6 +43,8 @@ class Pulse: UIView {
         animOuterOnce()
         
         layer.opacity = 0
+		
+		setColorScheme()
     }
     
     func animInnerOnce() {
@@ -96,13 +98,8 @@ class Pulse: UIView {
     let nightColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 0.11).CGColor
     let dayColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 0.11).CGColor
 
-    func setColorScheme(mode: ColorMode) {
-        if(mode == ColorMode.day) {
-            internalCircle.fillColor = dayColor
-            externalCircle.fillColor = dayColor
-        } else {
-            internalCircle.fillColor = nightColor
-            externalCircle.fillColor = nightColor
-        }
+    func setColorScheme() {
+		internalCircle.fillColor = AppDelegate.instance.colorScheme.pulseColor.CGColor
+		externalCircle.fillColor = AppDelegate.instance.colorScheme.pulseColor.CGColor
     }
 }

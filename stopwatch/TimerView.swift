@@ -31,6 +31,7 @@ class TimerView: UILabel {
         secondFraction.topAnchor.constraintEqualToAnchor(topAnchor).active = true
 
         updateLabel()
+		setColorScheme()
     }
 
     func start() {
@@ -125,17 +126,9 @@ class TimerView: UILabel {
         secondFraction.text = String(format: ".%0.1d", ms)
     }
 
-    let nightTimerColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
-    let dayTimerColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-
-    func setColorScheme(mode: ColorMode) {
-        if(mode == ColorMode.day) {
-            self.textColor = dayTimerColor
-            secondFraction.textColor = dayTimerColor
-        } else {
-            textColor = self.nightTimerColor
-            secondFraction.textColor = nightTimerColor
-        }
+    func setColorScheme() {
+		self.textColor = AppDelegate.instance.colorScheme.timerColor
+		secondFraction.textColor = AppDelegate.instance.colorScheme.timerColor
     }
 
     static func timerLabelSize() -> CGFloat {

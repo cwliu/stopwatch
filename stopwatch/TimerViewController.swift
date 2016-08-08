@@ -38,7 +38,6 @@ class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setColors()
         view.addSubview(timer)
         clockFace.center = ClockFace.clockHandLocation(self.view, clockFaceView: clockFace)
         view.addSubview(clockFace)
@@ -70,13 +69,6 @@ class TimerViewController: UIViewController {
             reset()
         }
     }
-    
-    func setColors() {
-        timer.setColorScheme(AppDelegate.instance.colorMode)
-        clockFace.setColorScheme(AppDelegate.instance.colorMode)
-        pulse.setColorScheme(AppDelegate.instance.colorMode)
-        shakeView.setColorScheme(AppDelegate.instance.colorMode)
-    }
 	
 	func reset() {
 		if (!settings.hasReset){
@@ -101,6 +93,6 @@ class TimerViewController: UIViewController {
     }
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return AppDelegate.instance.colorMode == .day ? .Default : .LightContent
+		return AppDelegate.instance.colorScheme.statusBarStyle
 	}
 }

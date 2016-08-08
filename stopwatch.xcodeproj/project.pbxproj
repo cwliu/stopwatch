@@ -23,6 +23,7 @@
 		63D701931D58D4B100643233 /* Datastore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D701921D58D4B100643233 /* Datastore.swift */; };
 		63D701951D58E14800643233 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D701941D58E14800643233 /* MainTabBarController.swift */; };
 		63D701971D58E5BD00643233 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D701961D58E5BD00643233 /* HistoryViewController.swift */; };
+		63D7019C1D58F60200643233 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D7019B1D58F60200643233 /* ColorScheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		63D701921D58D4B100643233 /* Datastore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datastore.swift; sourceTree = "<group>"; };
 		63D701941D58E14800643233 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		63D701961D58E5BD00643233 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		63D7019B1D58F60200643233 /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +100,9 @@
 			isa = PBXGroup;
 			children = (
 				197D7EBE1D10574400646FF0 /* AppDelegate.swift */,
-				63D701981D58E5C500643233 /* View Controllers */,
-				1995B2C41D13FA00006C57C5 /* UserSettings.swift */,
 				1995B2C21D12CDE6006C57C5 /* Extensions.swift */,
-				63D701921D58D4B100643233 /* Datastore.swift */,
-				63D7018C1D58D1A300643233 /* Views */,
+				63D7019A1D58F5F700643233 /* UI */,
+				63D701991D58F59200643233 /* Data */,
 				197D7EC21D10574400646FF0 /* Main.storyboard */,
 				197D7EC51D10574400646FF0 /* Assets.xcassets */,
 				197D7EC71D10574400646FF0 /* LaunchScreen.storyboard */,
@@ -140,6 +140,25 @@
 				63D701961D58E5BD00643233 /* HistoryViewController.swift */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		63D701991D58F59200643233 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1995B2C41D13FA00006C57C5 /* UserSettings.swift */,
+				63D701921D58D4B100643233 /* Datastore.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		63D7019A1D58F5F700643233 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				63D7019B1D58F60200643233 /* ColorScheme.swift */,
+				63D701981D58E5C500643233 /* View Controllers */,
+				63D7018C1D58D1A300643233 /* Views */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1995B2C31D12CDE6006C57C5 /* Extensions.swift in Sources */,
+				63D7019C1D58F60200643233 /* ColorScheme.swift in Sources */,
 				19E1D6B71D15A54B0084CA57 /* ShakeableView.swift in Sources */,
 				63D701951D58E14800643233 /* MainTabBarController.swift in Sources */,
 				63D701971D58E5BD00643233 /* HistoryViewController.swift in Sources */,

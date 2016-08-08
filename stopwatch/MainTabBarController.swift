@@ -11,17 +11,13 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 	
-	// MARK: Color constants
-	let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
-	let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		self.view.backgroundColor = AppDelegate.instance.colorMode == .day ? dayBackgroundColor : nightBackgroundColor
+		self.view.backgroundColor = AppDelegate.instance.colorScheme.backgroundColor
 	}
 	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return AppDelegate.instance.colorMode == .day ? .Default : .LightContent
+		return AppDelegate.instance.colorScheme.statusBarStyle
 	}
 }

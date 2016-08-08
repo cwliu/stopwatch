@@ -20,7 +20,7 @@ class ClockFace: UIView {
         )
 
         backgroundColor = UIColor.clearColor()
-        setColorScheme(ColorMode.day)
+        setColorScheme()
         clockHand.path = getHandPath(extended: false)
         clockHand.lineWidth = 0.01
         midLayer.addSublayer(clockHand)
@@ -92,20 +92,11 @@ class ClockFace: UIView {
     }
 
 
-    let dayDotColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1.0)
-    let dayHandColor = UIColor(red: 32/255.0, green: 31/255.0, blue: 61/255.0, alpha: 1.0)
+    
 
-    let nightDotColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1.0)
-    let nightHandColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1.0)
-
-    func setColorScheme(mode: ColorMode) {
-        if(mode == ColorMode.day) {
-            centerDot.backgroundColor = dayDotColor.CGColor
-            clockHand.strokeColor = dayHandColor.CGColor
-        } else {
-            centerDot.backgroundColor = nightDotColor.CGColor
-            clockHand.strokeColor = nightHandColor.CGColor
-        }
+    func setColorScheme() {
+		centerDot.backgroundColor = AppDelegate.instance.colorScheme.dotColor.CGColor
+		clockHand.strokeColor = AppDelegate.instance.colorScheme.handColor.CGColor
     }
 
     static func clockHandSize() -> Double {
