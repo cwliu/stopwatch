@@ -13,9 +13,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+	var colorMode: ColorMode {
+		let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+		let isDay = hour < 20 && hour > 8
+		
+		return isDay ? .day : .night
+	}
+	
+	static var instance: AppDelegate {
+		return UIApplication.sharedApplication().delegate as! AppDelegate
+	}
+	
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+		
+		configureTabBarAppearance()
+		
         return true
     }
 
@@ -41,6 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+	func configureTabBarAppearance() {
+		UITabBar.appearance().barTintColor = .clearColor()
+		UITabBar.appearance().tintColor = self.colorMode == .day ? .blackColor() : .whiteColor()
+		UITabBar.appearance().backgroundImage = UIImage()
+		UITabBar.appearance().shadowImage = UIImage()
+	}
 }
 
+enum ColorMode {
+	case day, night
+}

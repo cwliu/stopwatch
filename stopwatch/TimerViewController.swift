@@ -2,10 +2,6 @@ import UIKit
 
 class TimerViewController: UIViewController {
 
-    //MARK: Color constants
-    let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
-    let nightBackgroundColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-
     //MARK: Properties
     let pulse = Pulse ()
     let shakeView = ShakeableView()
@@ -76,15 +72,10 @@ class TimerViewController: UIViewController {
     }
     
     func setColors() {
-        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
-        let isDay = hour < 20 && hour > 8
-
-        self.view.backgroundColor = isDay ? dayBackgroundColor : nightBackgroundColor
-
-        timer.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
-        clockFace.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
-        pulse.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
-        shakeView.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
+        timer.setColorScheme(AppDelegate.instance.colorMode)
+        clockFace.setColorScheme(AppDelegate.instance.colorMode)
+        pulse.setColorScheme(AppDelegate.instance.colorMode)
+        shakeView.setColorScheme(AppDelegate.instance.colorMode)
     }
 	
 	func reset() {
@@ -108,8 +99,8 @@ class TimerViewController: UIViewController {
         confirmDialog.addAction(UIAlertAction(title: "Do nothing", style: .Cancel, handler: nil))
         presentViewController(confirmDialog, animated: true, completion: nil)
     }
-}
-
-enum ColorMode {
-    case day, night
+	
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return AppDelegate.instance.colorMode == .day ? .Default : .LightContent
+	}
 }

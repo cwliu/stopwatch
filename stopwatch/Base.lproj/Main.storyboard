@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rkd-iZ-Twt">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Timer View Controller-->
+        <!--Timer-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="TimerViewController" customModule="stopwatch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="TimerViewController" customModule="stopwatch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="center" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8c-qE-Bpz" customClass="TimerView" customModule="stopwatch" customModuleProvider="target">
@@ -24,16 +25,17 @@
                                 </accessibility>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PXU-Wr-fYh"/>
-                            <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ap6-yR-SDO"/>
+                            <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XtW-8U-Q6X"/>
+                            <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hpd-OY-T91"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WMq-th-jD9" appends="YES" id="gDC-Fd-eUe"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Timer" image="Timer" selectedImage="TimerSelected" id="oUA-o5-3e1"/>
                     <connections>
                         <outlet property="timer" destination="x8c-qE-Bpz" id="Mps-ee-iq4"/>
                     </connections>
@@ -45,7 +47,97 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="1117" y="15"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="cyy-UI-7gT">
+            <objects>
+                <viewController id="QMy-IL-gxU" customClass="HistoryViewController" customModule="stopwatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KZc-K3-iCw"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xtc-ep-PqI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mwg-wg-Xso">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wiV-DH-G71">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryCell" textLabel="IIH-Y6-3J5" detailTextLabel="8WW-Kl-tFe" style="IBUITableViewCellStyleSubtitle" id="GHb-z2-Te4">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GHb-z2-Te4" id="MeA-Zm-EwX">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IIH-Y6-3J5">
+                                                    <rect key="frame" x="15" y="5" width="32" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8WW-Kl-tFe">
+                                                    <rect key="frame" x="15" y="25" width="41" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="QMy-IL-gxU" id="k1A-r5-4Ym"/>
+                                    <outlet property="delegate" destination="QMy-IL-gxU" id="4CV-qK-xES"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="wiV-DH-G71" secondAttribute="trailing" constant="-20" id="Bja-qC-M9D"/>
+                            <constraint firstItem="wiV-DH-G71" firstAttribute="leading" secondItem="Mwg-wg-Xso" secondAttribute="leadingMargin" constant="-20" id="KdT-TL-Sfe"/>
+                            <constraint firstItem="Xtc-ep-PqI" firstAttribute="top" secondItem="wiV-DH-G71" secondAttribute="bottom" id="fpQ-ez-um2"/>
+                            <constraint firstItem="wiV-DH-G71" firstAttribute="top" secondItem="KZc-K3-iCw" secondAttribute="bottom" id="wN9-gI-Qe9"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="History" image="List" selectedImage="ListSelected" id="zfU-2E-gDt"/>
+                    <connections>
+                        <outlet property="tableView" destination="wiV-DH-G71" id="kpm-3r-tHF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Fv-gp-cQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1117" y="820"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="uPT-S0-PE0">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="rkd-iZ-Twt" customClass="MainTabBarController" customModule="stopwatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="xTU-mW-P5M">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dqi-vM-6Oy"/>
+                        <segue destination="QMy-IL-gxU" kind="relationship" relationship="viewControllers" id="vr1-TK-Xla"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QiG-GG-Sws" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="305" y="418"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="List" width="25" height="25"/>
+        <image name="ListSelected" width="25" height="25"/>
+        <image name="Timer" width="25" height="25"/>
+        <image name="TimerSelected" width="25" height="25"/>
+    </resources>
 </document>

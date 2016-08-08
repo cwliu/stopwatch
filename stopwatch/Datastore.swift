@@ -78,6 +78,7 @@ class Datastore {
 	
 	func fetchTimers() -> [Timer] {
 		let fetchRequest = NSFetchRequest(entityName: "Timer")
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
 		do {
 			let results = try managedObjectContext.executeFetchRequest(fetchRequest)
 			return results as! [Timer]

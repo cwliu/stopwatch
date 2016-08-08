@@ -21,6 +21,8 @@
 		3AD3C4E21D13080F00F60495 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3C4E11D13080F00F60495 /* Pulse.swift */; };
 		63D7018F1D58D37000643233 /* Timer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 63D7018D1D58D37000643233 /* Timer.xcdatamodeld */; };
 		63D701931D58D4B100643233 /* Datastore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D701921D58D4B100643233 /* Datastore.swift */; };
+		63D701951D58E14800643233 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D701941D58E14800643233 /* MainTabBarController.swift */; };
+		63D701971D58E5BD00643233 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D701961D58E5BD00643233 /* HistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		3AD3C4E11D13080F00F60495 /* Pulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
 		63D7018E1D58D37000643233 /* Timer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Timer.xcdatamodel; sourceTree = "<group>"; };
 		63D701921D58D4B100643233 /* Datastore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datastore.swift; sourceTree = "<group>"; };
+		63D701941D58E14800643233 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		63D701961D58E5BD00643233 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				197D7EBE1D10574400646FF0 /* AppDelegate.swift */,
-				197D7EC01D10574400646FF0 /* TimerViewController.swift */,
+				63D701981D58E5C500643233 /* View Controllers */,
 				1995B2C41D13FA00006C57C5 /* UserSettings.swift */,
 				1995B2C21D12CDE6006C57C5 /* Extensions.swift */,
 				63D701921D58D4B100643233 /* Datastore.swift */,
@@ -126,6 +130,16 @@
 				19E1D6B61D15A54B0084CA57 /* ShakeableView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		63D701981D58E5C500643233 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				63D701941D58E14800643233 /* MainTabBarController.swift */,
+				197D7EC01D10574400646FF0 /* TimerViewController.swift */,
+				63D701961D58E5BD00643233 /* HistoryViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +245,8 @@
 			files = (
 				1995B2C31D12CDE6006C57C5 /* Extensions.swift in Sources */,
 				19E1D6B71D15A54B0084CA57 /* ShakeableView.swift in Sources */,
+				63D701951D58E14800643233 /* MainTabBarController.swift in Sources */,
+				63D701971D58E5BD00643233 /* HistoryViewController.swift in Sources */,
 				1995B2C51D13FA00006C57C5 /* UserSettings.swift in Sources */,
 				63D701931D58D4B100643233 /* Datastore.swift in Sources */,
 				197D7EC11D10574400646FF0 /* TimerViewController.swift in Sources */,
