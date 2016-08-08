@@ -1,6 +1,6 @@
 import UIKit
 
-class Timer: UILabel {
+class TimerView: UILabel {
 
     var timer = NSTimer()
     var startTime = NSDate()
@@ -20,7 +20,7 @@ class Timer: UILabel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        font = UIFont.monospacedDigitSystemFontOfSize(Timer.timerLabelSize(), weight: UIFontWeightUltraLight)
+        font = UIFont.monospacedDigitSystemFontOfSize(TimerView.timerLabelSize(), weight: UIFontWeightUltraLight)
         secondFraction.text = ".0"
         secondFraction.font = font
         secondFraction.textColor = textColor
@@ -35,7 +35,7 @@ class Timer: UILabel {
 
     func start() {
         startTime = NSDate.init(timeIntervalSinceNow: interval)
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(Timer.tick), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(TimerView.tick), userInfo: nil, repeats: true)
         if let clock = clockFace {
             clock.show()
         }
@@ -97,7 +97,7 @@ class Timer: UILabel {
     func animateTextOffset(amount : Float, duration : Double, delay : Double) {
         let a = CGFloat(amount)
         let x = -secondFraction.frame.width / 2
-        let y = CGFloat(superview!.frame.height / 2 - frame.height / 2) - Timer.timerLabelFromBottom()
+        let y = CGFloat(superview!.frame.height / 2 - frame.height / 2) - TimerView.timerLabelFromBottom()
         animateLayer(layer,
             duration: duration, delay: delay,
             timingFunction: CAMediaTimingFunction(controlPoints: 0.2, 0, 0, 1),

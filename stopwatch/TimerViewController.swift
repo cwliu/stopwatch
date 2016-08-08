@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class TimerViewController: UIViewController {
 
     //MARK: Color constants
     let dayBackgroundColor = UIColor(red: 241/255.0, green: 207/255.0, blue: 99/255.0, alpha: 1.0)
@@ -10,7 +10,7 @@ class ViewController: UIViewController {
     let pulse = Pulse ()
     let shakeView = ShakeableView()
     let clockFace = ClockFace()
-    @IBOutlet weak var timer: Timer!
+    @IBOutlet weak var timer: TimerView!
 
     var settings : UserSettings!
     
@@ -41,6 +41,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setColors()
         view.addSubview(timer)
         clockFace.center = ClockFace.clockHandLocation(self.view, clockFaceView: clockFace)
@@ -70,11 +71,7 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if (motion == .MotionShake && !timer.timer.valid){
-            if(!settings.hasReset){
-                confirmReset()
-            }else {
-                timer.reset()
-            }
+            reset()
         }
     }
     
@@ -89,10 +86,20 @@ class ViewController: UIViewController {
         pulse.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
         shakeView.setColorScheme(isDay ? ColorMode.day : ColorMode.night)
     }
+	
+	func reset() {
+		if (!settings.hasReset){
+			confirmReset()
+		} else {
+			Datastore.instance.saveTimer(timer.startTime, duration: abs(timer.interval))
+			timer.reset()
+		}
+	}
 
     func confirmReset() {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
         confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
+			Datastore.instance.saveTimer(self.timer.startTime, duration: abs(self.timer.interval))
             self.settings.hasReset = true
             self.shakeView.hide()
             self.timer.reset()
