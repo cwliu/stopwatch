@@ -12,11 +12,27 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 
 	@IBOutlet weak var tableView: UITableView!
 	
+	@IBOutlet weak var backButton: UIButton!
+	
+	@IBOutlet weak var currentDurationLabel: UILabel!
+	@IBOutlet weak var currentDetailsLabel: UILabel!
+	@IBOutlet weak var topSeparatorView: UIView!
+	var delegate: HistoryDelegate?
+	
 	var timers: [Timer] = []
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		
+		backButton.setImage(AppDelegate.instance.colorScheme.backButton, forState: .Normal)
+		currentDurationLabel.textColor = AppDelegate.instance.colorScheme.textColor
+		currentDetailsLabel.textColor = AppDelegate.instance.colorScheme.secondaryTextColor
+		topSeparatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
+		
+		loadData()
+	}
+	
+	func loadData() {
 		timers = Datastore.instance.fetchTimers()
 		tableView.reloadData()
 	}
@@ -26,24 +42,26 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell")
+		let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell") as! HistoryTableViewCell
 		let timer = timers[indexPath.row]
 		
-		cell?.backgroundColor = .clearColor()
-		cell?.textLabel?.textColor = AppDelegate.instance.colorScheme.uiTintColor
-		cell?.detailTextLabel?.textColor = AppDelegate.instance.colorScheme.uiTintColor
+		cell.backgroundColor = .clearColor()
+		cell.durationLabel.textColor = AppDelegate.instance.colorScheme.textColor
+		cell.detailsLabel.textColor = AppDelegate.instance.colorScheme.secondaryTextColor
+		cell.separatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
 		
 		let formatter = NSDateComponentsFormatter()
-		formatter.unitsStyle = .Abbreviated
+		formatter.unitsStyle = .Short
 		formatter.allowedUnits = [.Second, .Minute, .Hour]
 		
-		cell?.textLabel?.text = formatter.stringFromTimeInterval(timer.duration)
-		cell?.detailTextLabel?.text = timer.date.defaultFormat()
+		let date = NSDate(timeIntervalSince1970: timer.duration)
+		cell.durationLabel.text = formatter.stringFromTimeInterval(timer.duration)
+		cell.detailsLabel.text = date.shortFormat()
 		
-		return cell!
+		return cell
 	}
 	
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return AppDelegate.instance.colorScheme.statusBarStyle
+	@IBAction func showTimer() {
+		delegate?.showTimer()
 	}
 }

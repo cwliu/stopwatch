@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "timer_filled.png",
+      "filename" : "iconLogBlue.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "timer_filled-1.png",
+      "filename" : "iconLogBlue@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "iconLogBlue@3x.png",
       "scale" : "3x"
     }
   ],

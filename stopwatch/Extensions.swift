@@ -75,12 +75,13 @@ extension NSDate {
 	}
 	
 	func shortFormat() -> String {
-		return format("HH:mm:ss")
+		return format("HH:mm:ss:S")
 	}
 	
 	func format(format: String) -> String {
 		let formatter = NSDateFormatter()
 		formatter.dateFormat = format
+		formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
 		return formatter.stringFromDate(self)
 	}
 	

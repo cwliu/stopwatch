@@ -7,21 +7,26 @@ class TimerViewController: UIViewController {
     let shakeView = ShakeableView()
     let clockFace = ClockFace()
     @IBOutlet weak var timer: TimerView!
+	@IBOutlet weak var historyButton: UIButton!
 
     var settings : UserSettings!
+	
+	var delegate: TimerDelegate?
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
         if(timer.isRunning()){
             timer.stop()
+			delegate?.timerStopped()
             settings.hasStopped = true
             pulse.hide()
             if(!settings.hasReset){
                 NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
             }
-        }else {
+        } else {
             shakeView.hide()
             timer.start()
+			delegate?.timerStarted()
             settings.hasStarted = true
             pulse.hide()
             if(!settings.hasStopped){
@@ -59,7 +64,15 @@ class TimerViewController: UIViewController {
                 self.pulse.show()
             })
         }
+		
+		historyButton.setImage(AppDelegate.instance.colorScheme.historyButton, forState: .Normal)
     }
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		becomeFirstResponder()
+	}
+	
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
@@ -74,7 +87,9 @@ class TimerViewController: UIViewController {
 		if (!settings.hasReset){
 			confirmReset()
 		} else {
+			delegate?.timerReset()
 			Datastore.instance.saveTimer(timer.startTime, duration: abs(timer.interval))
+			delegate?.timerSaved()
 			timer.reset()
 		}
 	}
@@ -82,7 +97,9 @@ class TimerViewController: UIViewController {
     func confirmReset() {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
         confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
+			self.delegate?.timerReset()
 			Datastore.instance.saveTimer(self.timer.startTime, duration: abs(self.timer.interval))
+			self.delegate?.timerSaved()
             self.settings.hasReset = true
             self.shakeView.hide()
             self.timer.reset()
@@ -92,7 +109,7 @@ class TimerViewController: UIViewController {
         presentViewController(confirmDialog, animated: true, completion: nil)
     }
 	
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return AppDelegate.instance.colorScheme.statusBarStyle
+	@IBAction func showHistory() {
+		delegate?.showHistory()
 	}
 }
