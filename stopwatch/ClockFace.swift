@@ -13,16 +13,17 @@ class ClockFace: UIView {
         super.init(coder: aDecoder)
     }
 
-    init() {
-        super.init(frame: CGRect (x: 0.0, y:0.0,
-            width: ClockFace.clockHandSize(),
-            height: ClockFace.clockHandSize())
-        )
-
+	init(containerSize: CGSize = CGSize(width: ClockFace.clockHandSize(), height: ClockFace.clockHandSize())) {
+		super.init(frame: CGRect (origin: CGPointZero, size: containerSize))
+		
         backgroundColor = UIColor.clearColor()
         setColorScheme()
         clockHand.path = getHandPath(extended: false)
-        clockHand.lineWidth = 0.01
+		
+		let scale = (CGFloat(ClockFace.clockHandSize()) / containerSize.width) + (CGFloat(ClockFace.clockHandSize()) / containerSize.height)
+		NSLog("\(scale)")
+		clockHand.lineWidth = 0.01 * (scale / 2)
+		
         midLayer.addSublayer(clockHand)
         midLayer.setAffineTransform(CGAffineTransform.init(a: frame.width/4.0, b: 0, c: 0, d: frame.height / 4.0, tx: frame.width / 2.0, ty: frame.height / 2.0))
         scaleDot(0)

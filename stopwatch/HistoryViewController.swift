@@ -17,6 +17,10 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	@IBOutlet weak var currentDurationLabel: UILabel!
 	@IBOutlet weak var currentDetailsLabel: UILabel!
 	@IBOutlet weak var topSeparatorView: UIView!
+	@IBOutlet weak var clockFaceContainer: UIView!
+	
+	var clockFace: ClockFace?
+	
 	var delegate: HistoryDelegate?
 	
 	var timers: [Timer] = []
@@ -30,6 +34,13 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		topSeparatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
 		
 		loadData()
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		clockFace = ClockFace(containerSize: clockFaceContainer.frame.size)
+		clockFace!.frame = CGRect(x: 0, y: 0, width: clockFaceContainer.frame.width, height: clockFaceContainer.frame.width)
+		clockFaceContainer.addSubview(clockFace!)
 	}
 	
 	func loadData() {

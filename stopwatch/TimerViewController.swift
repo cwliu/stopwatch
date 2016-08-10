@@ -24,6 +24,8 @@ class TimerViewController: UIViewController {
                 NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
             }
         } else {
+			timer.secondaryClockFaces = (delegate?.getSecondaryClockFaces())!
+			timer.secondaryLabels = (delegate?.getSecondaryLabels())!
             shakeView.hide()
             timer.start()
 			delegate?.timerStarted()

@@ -14,6 +14,8 @@ protocol TimerDelegate {
 	func timerStopped()
 	func timerReset()
 	func timerSaved()
+	func getSecondaryClockFaces() -> [ClockFace]
+	func getSecondaryLabels() -> [UILabel]
 	func showHistory()
 }
 
@@ -38,13 +40,6 @@ class MainViewController: UIViewController {
 		super.viewDidLayoutSubviews()
 		scrollView.contentSize = CGSize(width: view.frame.width * 2, height: view.frame.height)
 		
-		timerController = storyboard?.instantiateViewControllerWithIdentifier("TimerController")
-			as? TimerViewController
-		timerController?.delegate = self
-		addChildViewController(timerController!)
-		scrollView.addSubview((timerController?.view)!)
-		timerController?.didMoveToParentViewController(self)
-		
 		historyController = storyboard?.instantiateViewControllerWithIdentifier("HistoryController")
 			as? HistoryViewController
 		historyController?.delegate = self
@@ -52,6 +47,13 @@ class MainViewController: UIViewController {
 		historyController?.view.frame.origin.x = view.frame.size.width
 		scrollView.addSubview((historyController?.view)!)
 		historyController?.didMoveToParentViewController(self)
+		
+		timerController = storyboard?.instantiateViewControllerWithIdentifier("TimerController")
+			as? TimerViewController
+		timerController?.delegate = self
+		addChildViewController(timerController!)
+		scrollView.addSubview((timerController?.view)!)
+		timerController?.didMoveToParentViewController(self)
 	}
 	
 	override func prefersStatusBarHidden() -> Bool {
@@ -75,6 +77,14 @@ extension MainViewController: TimerDelegate {
 	
 	func timerSaved() {
 		historyController?.loadData()
+	}
+	
+	func getSecondaryClockFaces() -> [ClockFace] {
+		return [(historyController?.clockFace)!]
+	}
+	
+	func getSecondaryLabels() -> [UILabel] {
+		return [(historyController?.currentDetailsLabel)!]
 	}
 	
 	func showHistory() {
