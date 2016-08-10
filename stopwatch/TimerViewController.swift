@@ -8,6 +8,9 @@ class TimerViewController: UIViewController {
     let clockFace = ClockFace()
     @IBOutlet weak var timer: TimerView!
 	@IBOutlet weak var historyButton: UIButton!
+	@IBOutlet weak var historyHintView: UIView!
+	@IBOutlet weak var historyHintArrow: UIImageView!
+	@IBOutlet weak var historyHintCircles: UIImageView!
 
     var settings : UserSettings!
 	
@@ -17,10 +20,9 @@ class TimerViewController: UIViewController {
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
         if(timer.isRunning()){
             timer.stop()
-			delegate?.timerStopped()
             settings.hasStopped = true
             pulse.hide()
-            if(!settings.hasReset){
+            if (!settings.hasReset) {
                 NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
             }
         } else {
@@ -28,7 +30,6 @@ class TimerViewController: UIViewController {
 			timer.secondaryLabels = (delegate?.getSecondaryLabels())!
             shakeView.hide()
             timer.start()
-			delegate?.timerStarted()
             settings.hasStarted = true
             pulse.hide()
             if(!settings.hasStopped){
@@ -68,6 +69,10 @@ class TimerViewController: UIViewController {
         }
 		
 		historyButton.setImage(AppDelegate.instance.colorScheme.historyButton, forState: .Normal)
+		historyHintArrow.image = AppDelegate.instance.colorScheme.historyHintArrow
+		historyHintCircles.image = AppDelegate.instance.colorScheme.historyHintCircles
+		
+		refreshHistoryHint()
     }
 	
 	override func viewDidAppear(animated: Bool) {
@@ -85,11 +90,19 @@ class TimerViewController: UIViewController {
         }
     }
 	
+	func refreshHistoryHint() {
+		if !settings.showHistoryHint {
+			historyHintView.hidden = true
+		} else {
+			historyHintView.hidden = false
+		}
+	}
+	
 	func reset() {
 		if (!settings.hasReset){
 			confirmReset()
 		} else {
-			delegate?.timerReset()
+			refreshHistoryHint()
 			Datastore.instance.saveTimer(timer.startTime, duration: abs(timer.interval))
 			delegate?.timerSaved()
 			timer.reset()
@@ -99,7 +112,8 @@ class TimerViewController: UIViewController {
     func confirmReset() {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
         confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
-			self.delegate?.timerReset()
+			self.settings.showHistoryHint = true
+			self.refreshHistoryHint()
 			Datastore.instance.saveTimer(self.timer.startTime, duration: abs(self.timer.interval))
 			self.delegate?.timerSaved()
             self.settings.hasReset = true

@@ -21,6 +21,8 @@ struct ColorScheme {
 	var shakerColor: UIColor
 	var historyButton: UIImage
 	var backButton: UIImage
+	var historyHintArrow: UIImage
+	var historyHintCircles: UIImage
 }
 
 class ColorSchemes {
@@ -35,7 +37,9 @@ class ColorSchemes {
 		pulseColor: UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 0.11),
 		shakerColor: UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0),
 		historyButton: UIImage(named: "HistoryDay")!,
-		backButton: UIImage(named: "BackDay")!
+		backButton: UIImage(named: "BackDay")!,
+		historyHintArrow: UIImage(named: "SwipeLeftDay")!,
+		historyHintCircles: UIImage(named: "CirclesDay")!
 	
 	)
 	static let nightScheme = ColorScheme(
@@ -49,6 +53,8 @@ class ColorSchemes {
 		pulseColor: UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 0.11),
 		shakerColor: UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1.0),
 		historyButton: UIImage(named: "HistoryNight")!,
-		backButton: UIImage(named: "BackNight")!
+		backButton: UIImage(named: "BackNight")!,
+		historyHintArrow: UIImage(named: "SwipeLeftNight")!,
+		historyHintCircles: UIImage(named: "CirclesNight")!
 	)
 }

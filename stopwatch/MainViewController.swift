@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 
 protocol TimerDelegate {
-	func timerStarted()
-	func timerStopped()
-	func timerReset()
 	func timerSaved()
 	func getSecondaryClockFaces() -> [ClockFace]
 	func getSecondaryLabels() -> [UILabel]
@@ -23,7 +20,7 @@ protocol HistoryDelegate {
 	func showTimer()
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UIScrollViewDelegate {
 	
 	@IBOutlet weak var scrollView: UIScrollView!
 	
@@ -39,6 +36,7 @@ class MainViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		scrollView.contentSize = CGSize(width: view.frame.width * 2, height: view.frame.height)
+		scrollView.delegate = self
 		
 		historyController = storyboard?.instantiateViewControllerWithIdentifier("HistoryController")
 			as? HistoryViewController
@@ -59,21 +57,19 @@ class MainViewController: UIViewController {
 	override func prefersStatusBarHidden() -> Bool {
 		return true
 	}
+	
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		NSLog("\(scrollView.contentOffset.x) \(scrollView.frame.width * 0.9) \((timerController?.settings.hasReset)!) \((timerController?.settings.showHistoryHint)!)")
+		if scrollView.contentOffset.x >= scrollView.frame.width * 0.9
+			&& (timerController?.settings.hasReset)!
+			&& (timerController?.settings.showHistoryHint)! {
+			timerController?.settings.showHistoryHint = false
+			timerController?.refreshHistoryHint()
+		}
+	}
 }
 
 extension MainViewController: TimerDelegate {
-	
-	func timerStarted() {
-		
-	}
-	
-	func timerStopped() {
-		
-	}
-	
-	func timerReset() {
-		
-	}
 	
 	func timerSaved() {
 		historyController?.loadData()

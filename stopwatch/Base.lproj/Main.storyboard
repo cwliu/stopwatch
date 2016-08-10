@@ -67,6 +67,21 @@
                                     <action selector="showHistory" destination="BYZ-38-t0r" eventType="touchUpInside" id="U79-UC-LZ9"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObO-Jp-g1G">
+                                <rect key="frame" x="504" y="54" width="76" height="30"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93f-1L-cYX">
+                                        <rect key="frame" x="46" y="0.0" width="30" height="30"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qJc-WJ-3X4">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="30"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="dDc-fI-4sI"/>
+                                    <constraint firstAttribute="height" constant="30" id="gMy-Uf-4MJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
@@ -74,6 +89,8 @@
                             <constraint firstAttribute="trailingMargin" secondItem="P5h-Ao-cbl" secondAttribute="trailing" id="XAu-ik-ABf"/>
                             <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XtW-8U-Q6X"/>
                             <constraint firstItem="x8c-qE-Bpz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hpd-OY-T91"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ObO-Jp-g1G" secondAttribute="trailing" id="lhG-I7-y8g"/>
+                            <constraint firstItem="ObO-Jp-g1G" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="54" id="r5b-g9-Cmv"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WMq-th-jD9" appends="YES" id="gDC-Fd-eUe"/>
@@ -83,6 +100,9 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="historyButton" destination="P5h-Ao-cbl" id="ZJd-bs-bDl"/>
+                        <outlet property="historyHintArrow" destination="qJc-WJ-3X4" id="tDE-tN-wwm"/>
+                        <outlet property="historyHintCircles" destination="93f-1L-cYX" id="Gqn-Uo-rh1"/>
+                        <outlet property="historyHintView" destination="ObO-Jp-g1G" id="elS-TW-GrJ"/>
                         <outlet property="timer" destination="x8c-qE-Bpz" id="Mps-ee-iq4"/>
                     </connections>
                 </viewController>
