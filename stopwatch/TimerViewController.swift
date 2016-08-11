@@ -11,6 +11,10 @@ class TimerViewController: UIViewController {
 	@IBOutlet weak var historyHintView: UIView!
 	@IBOutlet weak var historyHintArrow: UIImageView!
 	@IBOutlet weak var historyHintCircles: UIImageView!
+	
+	var shakeTimer: NSTimer?
+	
+	var pulseTimer: NSTimer?
 
     var settings : UserSettings!
 	
@@ -18,14 +22,22 @@ class TimerViewController: UIViewController {
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
-        if(timer.isRunning()){
+        if(timer.isRunning()) {
+			if pulseTimer != nil {
+				pulseTimer?.invalidate()
+				pulseTimer = nil
+			}
             timer.stop()
             settings.hasStopped = true
             pulse.hide()
             if (!settings.hasReset) {
-                NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
+               shakeTimer = NSTimer.schedule(delay: 1, handler: { timer in self.shakeView.show()})
             }
         } else {
+			if shakeTimer != nil {
+				shakeTimer?.invalidate()
+				shakeTimer = nil
+			}
 			timer.secondaryClockFaces = (delegate?.getSecondaryClockFaces())!
 			timer.secondaryLabels = (delegate?.getSecondaryLabels())!
 			timer.prettySecondaryLabels = (delegate?.getPrettySecondaryLabels())!
@@ -35,7 +47,7 @@ class TimerViewController: UIViewController {
             settings.hasStarted = true
             pulse.hide()
             if(!settings.hasStopped){
-                NSTimer.schedule(delay: 5, handler: { timer in
+                pulseTimer = NSTimer.schedule(delay: 5, handler: { timer in
                     if !self.timer.isRunning() {
                         return
                     }
