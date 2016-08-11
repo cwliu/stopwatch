@@ -11,13 +11,13 @@ import UIKit
 class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	@IBOutlet weak var tableView: UITableView!
-	
 	@IBOutlet weak var backButton: UIButton!
-	
 	@IBOutlet weak var currentDurationLabel: UILabel!
 	@IBOutlet weak var currentDetailsLabel: UILabel!
 	@IBOutlet weak var topSeparatorView: UIView!
 	@IBOutlet weak var clockFaceContainer: UIView!
+	
+	var tableViewHeader: UIView?
 	
 	var clockFace: ClockFace?
 	
@@ -33,14 +33,28 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		currentDetailsLabel.textColor = AppDelegate.instance.colorScheme.secondaryTextColor
 		topSeparatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
 		
+		tableViewHeader = tableView.tableHeaderView!
+		
+		hideCurrentTimerView()
+		
 		loadData()
 	}
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		clockFace = ClockFace(containerSize: clockFaceContainer.frame.size)
-		clockFace!.frame = CGRect(x: 0, y: 0, width: clockFaceContainer.frame.width, height: clockFaceContainer.frame.width)
-		clockFaceContainer.addSubview(clockFace!)
+		if clockFace == nil {
+			clockFace = ClockFace(containerSize: clockFaceContainer.frame.size)
+			clockFace!.frame = CGRect(x: 0, y: 0, width: clockFaceContainer.frame.width, height: clockFaceContainer.frame.width)
+			clockFaceContainer.addSubview(clockFace!)
+		}
+	}
+	
+	func hideCurrentTimerView() {
+		tableView.tableHeaderView = nil
+	}
+	
+	func showCurrentTimerView() {
+		tableView.tableHeaderView = tableViewHeader
 	}
 	
 	func loadData() {
@@ -61,12 +75,10 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		cell.detailsLabel.textColor = AppDelegate.instance.colorScheme.secondaryTextColor
 		cell.separatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
 		
-		let formatter = NSDateComponentsFormatter()
-		formatter.unitsStyle = .Short
-		formatter.allowedUnits = [.Second, .Minute, .Hour]
+		
 		
 		let date = NSDate(timeIntervalSince1970: timer.duration)
-		cell.durationLabel.text = formatter.stringFromTimeInterval(timer.duration)
+		cell.durationLabel.text = NSDateComponentsFormatter.prettyFormattedInterval(timer.duration)
 		cell.detailsLabel.text = date.shortFormat()
 		
 		return cell

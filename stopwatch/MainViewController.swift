@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 
 protocol TimerDelegate {
+	func timerStarted()
+	func timerReset()
 	func timerSaved()
 	func getSecondaryClockFaces() -> [ClockFace]
 	func getSecondaryLabels() -> [UILabel]
+	func getPrettySecondaryLabels() -> [UILabel]
 	func showHistory()
 }
 
@@ -52,24 +55,35 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
 		addChildViewController(timerController!)
 		scrollView.addSubview((timerController?.view)!)
 		timerController?.didMoveToParentViewController(self)
+		
+		scrollView.scrollEnabled = UserSettings().hasReset
+		timerController?.historyButton.hidden = !UserSettings().hasReset
+	}
+	
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		if scrollView.contentOffset.x >= scrollView.frame.width * 0.9
+				&& timerController?.settings.showHistoryHint == true {
+			timerController?.settings.showHistoryHint = false
+			timerController?.refreshHistoryHint()
+		}
 	}
 	
 	override func prefersStatusBarHidden() -> Bool {
 		return true
 	}
-	
-	func scrollViewDidScroll(scrollView: UIScrollView) {
-		NSLog("\(scrollView.contentOffset.x) \(scrollView.frame.width * 0.9) \((timerController?.settings.hasReset)!) \((timerController?.settings.showHistoryHint)!)")
-		if scrollView.contentOffset.x >= scrollView.frame.width * 0.9
-			&& (timerController?.settings.hasReset)!
-			&& (timerController?.settings.showHistoryHint)! {
-			timerController?.settings.showHistoryHint = false
-			timerController?.refreshHistoryHint()
-		}
-	}
 }
 
 extension MainViewController: TimerDelegate {
+	
+	func timerStarted() {
+		historyController?.showCurrentTimerView()
+	}
+	
+	func timerReset() {
+		scrollView.scrollEnabled = true
+		timerController?.refreshHistoryHint()
+		historyController?.hideCurrentTimerView()
+	}
 	
 	func timerSaved() {
 		historyController?.loadData()
@@ -81,6 +95,10 @@ extension MainViewController: TimerDelegate {
 	
 	func getSecondaryLabels() -> [UILabel] {
 		return [(historyController?.currentDetailsLabel)!]
+	}
+	
+	func getPrettySecondaryLabels() -> [UILabel] {
+		return [(historyController?.currentDurationLabel)!]
 	}
 	
 	func showHistory() {

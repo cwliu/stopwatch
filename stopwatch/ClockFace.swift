@@ -21,7 +21,6 @@ class ClockFace: UIView {
         clockHand.path = getHandPath(extended: false)
 		
 		let scale = (CGFloat(ClockFace.clockHandSize()) / containerSize.width) + (CGFloat(ClockFace.clockHandSize()) / containerSize.height)
-		NSLog("\(scale)")
 		clockHand.lineWidth = 0.01 * (scale / 2)
 		
         midLayer.addSublayer(clockHand)

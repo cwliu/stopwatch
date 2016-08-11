@@ -17,6 +17,7 @@ class TimerView: UILabel {
 	
 	var secondaryClockFaces: [ClockFace] = []
 	var secondaryLabels: [UILabel] = []
+	var prettySecondaryLabels: [UILabel] = []
 
     let screenSize: CGRect = UIScreen.mainScreen().bounds
 
@@ -39,7 +40,10 @@ class TimerView: UILabel {
 
     func start() {
         startTime = NSDate.init(timeIntervalSinceNow: interval)
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(TimerView.tick), userInfo: nil, repeats: true)
+		
+		timer = NSTimer(timeInterval: 0.1, target: self, selector: #selector(TimerView.tick), userInfo: nil, repeats: true)
+        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+		
         if let clock = clockFace {
             clock.show()
         }
@@ -138,6 +142,9 @@ class TimerView: UILabel {
         secondFraction.text = String(format: ".%0.1d", ms)
 		for secondaryLabel in secondaryLabels {
 			secondaryLabel.text = text! + String(format: ".%0.1d", ms)
+		}
+		for prettySecondaryLabel in prettySecondaryLabels {
+			prettySecondaryLabel.text = NSDateComponentsFormatter.prettyFormattedInterval(interval)
 		}
     }
 

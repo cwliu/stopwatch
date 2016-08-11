@@ -86,3 +86,15 @@ extension NSDate {
 	}
 	
 }
+
+extension NSDateComponentsFormatter {
+	
+	class func prettyFormattedInterval(interval: NSTimeInterval) -> String? {
+		let formatter = NSDateComponentsFormatter()
+		formatter.unitsStyle = .Short
+		formatter.allowedUnits = [.Second, .Minute, .Hour]
+		
+		return formatter.stringFromTimeInterval(abs(interval))
+	}
+	
+}
