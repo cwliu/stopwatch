@@ -13,9 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+	var colorScheme: ColorScheme {
+		let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+		let isDay = hour < 20 && hour > 8
+		
+		return isDay ? ColorSchemes.dayScheme : ColorSchemes.nightScheme
+	}
+	
+	static var instance: AppDelegate {
+		return UIApplication.sharedApplication().delegate as! AppDelegate
+	}
+	
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+		
         return true
     }
 
@@ -40,7 +50,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-

@@ -35,6 +35,8 @@ class ShakeableView: UIView {
         NSTimer.scheduledTimerWithTimeInterval(1.2, target: self, selector: #selector(ShakeableView.shakeOnce), userInfo: nil, repeats: true)
 
         self.addSubview(shakeView)
+		
+		setColorScheme()
     }
 
     func shakeOnce() {
@@ -52,7 +54,7 @@ class ShakeableView: UIView {
         if let image = UIImage(named: nameOfImage) {
             imageView.image = image.imageWithRenderingMode(.AlwaysTemplate)
         }
-        imageView.tintColor = dayColor
+        imageView.tintColor = AppDelegate.instance.colorScheme.shakerColor
         return imageView
     }
 
@@ -68,19 +70,10 @@ class ShakeableView: UIView {
         animateLayer(layer, duration: 0.5, animation: { l in l.opacity = opacity }, properties: "opacity")
     }
 
-    let nightColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1.0)
-    let dayColor = UIColor(red: 31/255.0, green: 30/255.0, blue: 69/255.0, alpha: 1.0)
-
-    func setColorScheme(mode: ColorMode) {
-        if(mode == ColorMode.day) {
-            rightArrow.tintColor = dayColor
-            leftArrow.tintColor = dayColor
-            shakeable.tintColor = dayColor
-        } else {
-            rightArrow.tintColor = nightColor
-            leftArrow.tintColor = nightColor
-            shakeable.tintColor = nightColor
-        }
+    func setColorScheme() {
+		rightArrow.tintColor = AppDelegate.instance.colorScheme.shakerColor
+		leftArrow.tintColor = AppDelegate.instance.colorScheme.shakerColor
+		shakeable.tintColor = AppDelegate.instance.colorScheme.shakerColor
     }
 
 }

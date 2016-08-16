@@ -67,3 +67,34 @@ extension AppDelegate {
         return max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height) <= 568.0
     }
 }
+
+extension NSDate {
+	
+	func defaultFormat() -> String {
+		return format("dd/MM/yyyy hh:mm a")
+	}
+	
+	func shortFormat() -> String {
+		return format("HH:mm:ss:S")
+	}
+	
+	func format(format: String) -> String {
+		let formatter = NSDateFormatter()
+		formatter.dateFormat = format
+		formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+		return formatter.stringFromDate(self)
+	}
+	
+}
+
+extension NSDateComponentsFormatter {
+	
+	class func prettyFormattedInterval(interval: NSTimeInterval) -> String? {
+		let formatter = NSDateComponentsFormatter()
+		formatter.unitsStyle = .Short
+		formatter.allowedUnits = [.Second, .Minute, .Hour]
+		
+		return formatter.stringFromTimeInterval(abs(interval))
+	}
+	
+}

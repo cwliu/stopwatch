@@ -13,16 +13,16 @@ class ClockFace: UIView {
         super.init(coder: aDecoder)
     }
 
-    init() {
-        super.init(frame: CGRect (x: 0.0, y:0.0,
-            width: ClockFace.clockHandSize(),
-            height: ClockFace.clockHandSize())
-        )
-
+	init(containerSize: CGSize = CGSize(width: ClockFace.clockHandSize(), height: ClockFace.clockHandSize())) {
+		super.init(frame: CGRect (origin: CGPointZero, size: containerSize))
+		
         backgroundColor = UIColor.clearColor()
-        setColorScheme(ColorMode.day)
+        setColorScheme()
         clockHand.path = getHandPath(extended: false)
-        clockHand.lineWidth = 0.01
+		
+		let scale = (CGFloat(ClockFace.clockHandSize()) / containerSize.width) + (CGFloat(ClockFace.clockHandSize()) / containerSize.height)
+		clockHand.lineWidth = 0.01 * (scale / 2)
+		
         midLayer.addSublayer(clockHand)
         midLayer.setAffineTransform(CGAffineTransform.init(a: frame.width/4.0, b: 0, c: 0, d: frame.height / 4.0, tx: frame.width / 2.0, ty: frame.height / 2.0))
         scaleDot(0)
@@ -92,20 +92,11 @@ class ClockFace: UIView {
     }
 
 
-    let dayDotColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1.0)
-    let dayHandColor = UIColor(red: 32/255.0, green: 31/255.0, blue: 61/255.0, alpha: 1.0)
+    
 
-    let nightDotColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1.0)
-    let nightHandColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1.0)
-
-    func setColorScheme(mode: ColorMode) {
-        if(mode == ColorMode.day) {
-            centerDot.backgroundColor = dayDotColor.CGColor
-            clockHand.strokeColor = dayHandColor.CGColor
-        } else {
-            centerDot.backgroundColor = nightDotColor.CGColor
-            clockHand.strokeColor = nightHandColor.CGColor
-        }
+    func setColorScheme() {
+		centerDot.backgroundColor = AppDelegate.instance.colorScheme.dotColor.CGColor
+		clockHand.strokeColor = AppDelegate.instance.colorScheme.handColor.CGColor
     }
 
     static func clockHandSize() -> Double {
