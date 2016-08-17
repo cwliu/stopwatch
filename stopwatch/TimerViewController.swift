@@ -140,6 +140,8 @@ class TimerViewController: UIViewController {
             return false
         }
         
+        settings.updateUsageDay()
+        
         let timers = Datastore.instance.fetchTimers()
         if(timers.count >= 10 && settings.usageDay >= 3){
             return true

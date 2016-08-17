@@ -96,20 +96,6 @@
 
         let now = NSDate()
 
-        let lastOpenedComponents = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: lastOpened)
-        let lastOpenedYear =  lastOpenedComponents.year
-        let lastOpenedMonth = lastOpenedComponents.month
-        let lastOpenedDay = lastOpenedComponents.day
-
-        let nowComponents = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: now)
-        let nowYear =  nowComponents.year
-        let nowMonth = nowComponents.month
-        let nowDay = nowComponents.day
-
-        if(nowDay != lastOpenedDay || nowMonth != lastOpenedMonth || nowYear != lastOpenedYear){
-            usageDay += 1
-        }
-
         let interval = now.timeIntervalSinceDate(lastOpened)
 
         if(interval > weekInSeconds){
@@ -117,6 +103,26 @@
         } else {
             lastOpened = NSDate()
         }
+    }
+    
+    func updateUsageDay(){
+        let now = NSDate()
+        
+        let lastOpenedComponents = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: lastOpened)
+        let lastOpenedYear =  lastOpenedComponents.year
+        let lastOpenedMonth = lastOpenedComponents.month
+        let lastOpenedDay = lastOpenedComponents.day
+        
+        let nowComponents = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: now)
+        let nowYear =  nowComponents.year
+        let nowMonth = nowComponents.month
+        let nowDay = nowComponents.day
+        
+        if(nowDay != lastOpenedDay || nowMonth != lastOpenedMonth || nowYear != lastOpenedYear){
+            usageDay += 1
+        }
+        
+        lastOpened = NSDate()
     }
 
     func restoreDefaults() {
