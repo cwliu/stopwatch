@@ -136,11 +136,20 @@ class TimerViewController: UIViewController {
 	}
 
     func meetRatingCriteria() -> Bool{
-        // TODO
-        return true
+        if(settings.hasAskedFeedback){
+            return false
+        }
+        
+        let timers = Datastore.instance.fetchTimers()
+        if(timers.count >= 10){
+            return true
+        }else{
+            return false
+        }
     }
 
     func rateApp() {
+        settings.hasAskedFeedback = true
 
         let appId = "id1126783712"
 

@@ -10,13 +10,15 @@
     private let hasStoppedKey = "hasStopped"
     private let hasResetKey = "hasReset"
 	private let showHistoryHintKey = "showHistoryHint"
+    private let hasAskedFeedbackKey = "hasAskedFeedback"
 
     private lazy var defaultValues : NSDictionary = [
             self.hasStartedKey : false,
             self.hasStoppedKey : false,
             self.hasResetKey : false,
             self.showHistoryHintKey: false,
-            self.lastOpenedKey: NSDate()
+            self.lastOpenedKey: NSDate(),
+            self.hasAskedFeedbackKey: false
     ]
 
     var lastOpened : NSDate! {
@@ -63,6 +65,15 @@
 			return defaults.boolForKey(showHistoryHintKey)
 		}
 	}
+    
+    var hasAskedFeedback : Bool {
+        set {
+            defaults.setBool(newValue, forKey: hasAskedFeedbackKey)
+        }
+        get {
+            return defaults.boolForKey(hasAskedFeedbackKey)
+        }
+    }
 
     init (){
         defaults.registerDefaults(defaultValues as! [String : AnyObject])
@@ -87,5 +98,6 @@
         hasStopped = defaultValues[hasStoppedKey] as! Bool
         hasReset = defaultValues[hasResetKey] as! Bool
 		showHistoryHint = defaultValues[showHistoryHintKey] as! Bool
+        hasAskedFeedback = defaultValues[hasAskedFeedbackKey] as! Bool
     }
  }
