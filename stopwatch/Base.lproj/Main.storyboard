@@ -271,5 +271,57 @@
             </objects>
             <point key="canvasLocation" x="1117" y="820"/>
         </scene>
+        <!--Feedback View Controller-->
+        <scene sceneID="Q7W-li-FXn">
+            <objects>
+                <viewController storyboardIdentifier="FeedbackController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DlC-or-vqM" customClass="FeedbackViewController" customModule="stopwatch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sTZ-Qf-IvR"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vqo-bQ-b4D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Dp-V4-RLL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add your comment..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bnx-Wr-68S">
+                                <rect key="frame" x="20" y="36" width="560" height="169"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc5-ap-Xjp">
+                                <rect key="frame" x="160" y="280" width="280" height="30"/>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.4823529411764706" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="XGh-ZL-wfb"/>
+                                    <constraint firstAttribute="width" constant="280" id="ip1-TT-WNB"/>
+                                </constraints>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonClick:" destination="DlC-or-vqM" eventType="touchUpInside" id="7ln-d6-QPD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Vqo-bQ-b4D" firstAttribute="top" secondItem="Gc5-ap-Xjp" secondAttribute="bottom" constant="290" id="32D-X5-HNt"/>
+                            <constraint firstItem="bnx-Wr-68S" firstAttribute="leading" secondItem="2Dp-V4-RLL" secondAttribute="leadingMargin" id="9oz-8Q-OSA"/>
+                            <constraint firstItem="Gc5-ap-Xjp" firstAttribute="top" secondItem="bnx-Wr-68S" secondAttribute="bottom" constant="75" id="Lcc-zc-yTE"/>
+                            <constraint firstItem="bnx-Wr-68S" firstAttribute="trailing" secondItem="2Dp-V4-RLL" secondAttribute="trailingMargin" id="b8Y-o3-pDi"/>
+                            <constraint firstItem="bnx-Wr-68S" firstAttribute="top" secondItem="sTZ-Qf-IvR" secondAttribute="bottom" constant="16" id="htZ-Dd-XnF"/>
+                            <constraint firstItem="Gc5-ap-Xjp" firstAttribute="centerX" secondItem="2Dp-V4-RLL" secondAttribute="centerX" id="v0p-bT-JfP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="feedbackMessage" destination="bnx-Wr-68S" id="oon-Se-HgW"/>
+                        <outlet property="sendButton" destination="Gc5-ap-Xjp" id="hvi-8t-66e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ifu-IZ-4BA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1117" y="1547"/>
+        </scene>
     </scenes>
 </document>

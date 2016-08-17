@@ -144,39 +144,62 @@ class TimerViewController: UIViewController {
 
         let appId = "id1126783712"
 
-        let askRatingDialog = UIAlertController(title: nil, message: "Would you mind taking a moment to rate it in the App Store?", preferredStyle: .ActionSheet)
-        let askRatingYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: {
-            action in
+        let askRatingDialog = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        askRatingDialog.view.backgroundColor = UIColor.whiteColor()
+        let askRatingTitle = NSAttributedString(string: "Would you mind taking a moment to rate it in the App Store?", attributes: [
+            NSFontAttributeName : UIFont.systemFontOfSize(16),
+            NSForegroundColorAttributeName : AppDelegate.instance.colorScheme.textColor
+            ])
+        askRatingDialog.setValue(askRatingTitle, forKey: "attributedTitle")
+
+
+        let askRatingYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: { action in
             UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
         })
-        let askRatingNoAction = UIAlertAction(title: "No, thanks", style: .Default, handler: nil)
-        askRatingDialog.addAction(askRatingYesAction)
+        let askRatingNoAction = UIAlertAction(title: "No, thanks", style: .Cancel, handler: nil)
         askRatingDialog.addAction(askRatingNoAction)
+        askRatingDialog.addAction(askRatingYesAction)
 
-        let feedbackDialog = UIAlertController(title: nil, message: "Would you mind giving us some feedback?", preferredStyle: .ActionSheet)
-        let feedbackYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: {
-            action in
-            // something
+        let askFeedbackDialog = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let feedbackTitle = NSAttributedString(string: "Would you mind giving us some feedback?", attributes: [
+            NSFontAttributeName : UIFont.systemFontOfSize(16),
+            NSForegroundColorAttributeName : AppDelegate.instance.colorScheme.textColor
+            ])
+        askFeedbackDialog.setValue(feedbackTitle, forKey: "attributedTitle")
+
+        
+        askFeedbackDialog.view.backgroundColor = UIColor.whiteColor()
+        
+        let feedbackYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: { action in
+            let feedbackViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FeedbackController") as! FeedbackViewController
+            self.presentViewController(feedbackViewController, animated: true, completion: nil)
         })
-        let feedbackNoAction = UIAlertAction(title: "No, thanks", style: .Default, handler: nil)
-        feedbackDialog.addAction(feedbackYesAction)
-        feedbackDialog.addAction(feedbackNoAction)
-
-
-        let isEnjoyDialog = UIAlertController(title: nil, message: "Enjoying Stopwatch?", preferredStyle: .ActionSheet)
+        let feedbackNoAction = UIAlertAction(title: "No, thanks", style: .Cancel, handler: nil)
+        askFeedbackDialog.addAction(feedbackNoAction)
+        askFeedbackDialog.addAction(feedbackYesAction)
+        
+        let isEnjoyDialog = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        isEnjoyDialog.view.backgroundColor = UIColor.whiteColor()
+        
+        let isEnjoyTitle = NSAttributedString(string: "Enjoying Stopwatch?", attributes: [
+            NSFontAttributeName : UIFont.systemFontOfSize(16),
+            NSForegroundColorAttributeName : AppDelegate.instance.colorScheme.textColor
+            ])
+        isEnjoyDialog.setValue(isEnjoyTitle, forKey: "attributedTitle")
+        
         let isEnjoyYesAction = UIAlertAction(title: "Yes!", style: .Default, handler: { action in
             self.presentViewController(askRatingDialog, animated: true, completion: nil)
-        })
-        let isEnjoyNoAction = UIAlertAction(title: "Not really", style: .Default, handler: {action in
 
-            self.presentViewController(feedbackDialog, animated: true, completion:nil)
+        })
+        let isEnjoyNoAction = UIAlertAction(title: "Not really", style: .Cancel, handler: { action in
+            self.presentViewController(askFeedbackDialog, animated: true, completion: nil)
         })
 
-        isEnjoyDialog.addAction(isEnjoyYesAction)
         isEnjoyDialog.addAction(isEnjoyNoAction)
+        isEnjoyDialog.addAction(isEnjoyYesAction)
 
         self.presentViewController(isEnjoyDialog, animated: true, completion: nil)
-
     }
 
     func confirmReset() {
