@@ -144,7 +144,7 @@ class TimerViewController: UIViewController {
 
         let appId = "id1126783712"
 
-        let askRatingDialog = UIAlertController(title: nil, message: "How about a rating on the App Store?", preferredStyle: .ActionSheet)
+        let askRatingDialog = UIAlertController(title: nil, message: "Would you mind taking a moment to rate it in the App Store?", preferredStyle: .ActionSheet)
         let askRatingYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: {
             action in
             UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
