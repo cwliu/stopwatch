@@ -31,6 +31,8 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
 	
 	var historyController: HistoryViewController?
 	
+    var mainViewLayouted: Bool = false
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = AppDelegate.instance.colorScheme.backgroundColor
@@ -38,26 +40,31 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		scrollView.contentSize = CGSize(width: view.frame.width * 2, height: view.frame.height)
-		scrollView.delegate = self
+        
+        if(!mainViewLayouted){
+            mainViewLayouted = true
+            
+            scrollView.contentSize = CGSize(width: view.frame.width * 2, height: view.frame.height)
+            scrollView.delegate = self
 		
-		historyController = storyboard?.instantiateViewControllerWithIdentifier("HistoryController")
-			as? HistoryViewController
-		historyController?.delegate = self
-		addChildViewController(historyController!)
-		historyController?.view.frame.origin.x = view.frame.size.width
-		scrollView.addSubview((historyController?.view)!)
-		historyController?.didMoveToParentViewController(self)
-		
-		timerController = storyboard?.instantiateViewControllerWithIdentifier("TimerController")
-			as? TimerViewController
-		timerController?.delegate = self
-		addChildViewController(timerController!)
-		scrollView.addSubview((timerController?.view)!)
-		timerController?.didMoveToParentViewController(self)
-		
-		scrollView.scrollEnabled = UserSettings().hasReset
-		timerController?.historyButton.hidden = !UserSettings().hasReset
+            historyController = storyboard?.instantiateViewControllerWithIdentifier("HistoryController")
+                as? HistoryViewController
+            historyController?.delegate = self
+            addChildViewController(historyController!)
+            historyController?.view.frame.origin.x = view.frame.size.width
+            scrollView.addSubview((historyController?.view)!)
+            historyController?.didMoveToParentViewController(self)
+            
+            timerController = storyboard?.instantiateViewControllerWithIdentifier("TimerController")
+                as? TimerViewController
+            timerController?.delegate = self
+            addChildViewController(timerController!)
+            scrollView.addSubview((timerController?.view)!)
+            timerController?.didMoveToParentViewController(self)
+            
+            scrollView.scrollEnabled = UserSettings().hasReset
+            timerController?.historyButton.hidden = !UserSettings().hasReset
+        }
 	}
 	
 	func scrollViewDidScroll(scrollView: UIScrollView) {
