@@ -101,6 +101,10 @@ class TimerViewController: UIViewController {
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if (motion == .MotionShake && !timer.timer.valid){
             reset()
+
+            if(meetRatingCriteria()){
+                rateApp()
+            }
         }
     }
 	
@@ -130,6 +134,50 @@ class TimerViewController: UIViewController {
 			timer.reset()
 		}
 	}
+
+    func meetRatingCriteria() -> Bool{
+        // TODO
+        return true
+    }
+
+    func rateApp() {
+
+        let appId = "id1126783712"
+
+        let askRatingDialog = UIAlertController(title: nil, message: "How about a rating on the App Store?", preferredStyle: .ActionSheet)
+        let askRatingYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: {
+            action in
+            UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
+        })
+        let askRatingNoAction = UIAlertAction(title: "No, thanks", style: .Default, handler: nil)
+        askRatingDialog.addAction(askRatingYesAction)
+        askRatingDialog.addAction(askRatingNoAction)
+
+        let feedbackDialog = UIAlertController(title: nil, message: "Would you mind giving us some feedback?", preferredStyle: .ActionSheet)
+        let feedbackYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: {
+            action in
+            // something
+        })
+        let feedbackNoAction = UIAlertAction(title: "No, thanks", style: .Default, handler: nil)
+        feedbackDialog.addAction(feedbackYesAction)
+        feedbackDialog.addAction(feedbackNoAction)
+
+
+        let isEnjoyDialog = UIAlertController(title: nil, message: "Enjoying Stopwatch?", preferredStyle: .ActionSheet)
+        let isEnjoyYesAction = UIAlertAction(title: "Yes!", style: .Default, handler: { action in
+            self.presentViewController(askRatingDialog, animated: true, completion: nil)
+        })
+        let isEnjoyNoAction = UIAlertAction(title: "Not really", style: .Default, handler: {action in
+
+            self.presentViewController(feedbackDialog, animated: true, completion:nil)
+        })
+
+        isEnjoyDialog.addAction(isEnjoyYesAction)
+        isEnjoyDialog.addAction(isEnjoyNoAction)
+
+        self.presentViewController(isEnjoyDialog, animated: true, completion: nil)
+
+    }
 
     func confirmReset() {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
