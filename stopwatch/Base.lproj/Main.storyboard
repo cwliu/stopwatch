@@ -135,13 +135,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hP-sk-cdq">
-                                            <rect key="frame" x="22" y="9" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="PEx-Uc-x7a"/>
-                                                <constraint firstAttribute="height" constant="50" id="l8F-BO-IwW"/>
-                                            </constraints>
-                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 sec" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLT-RZ-fNh">
                                             <rect key="frame" x="80" y="18" width="512" height="16"/>
                                             <constraints>
@@ -158,10 +151,17 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P60-W8-4EE">
-                                            <rect key="frame" x="72" y="67" width="528" height="2"/>
+                                            <rect key="frame" x="72" y="68" width="528" height="1"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="2" id="lKw-ql-u1s"/>
+                                                <constraint firstAttribute="height" constant="1" id="lKw-ql-u1s"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hP-sk-cdq">
+                                            <rect key="frame" x="22" y="17.5" width="35" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="35" id="PEx-Uc-x7a"/>
+                                                <constraint firstAttribute="height" constant="35" id="l8F-BO-IwW"/>
                                             </constraints>
                                         </view>
                                     </subviews>

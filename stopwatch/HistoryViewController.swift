@@ -43,7 +43,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		if clockFace == nil {
-			clockFace = ClockFace(containerSize: clockFaceContainer.frame.size)
+            clockFace = ClockFace(containerSize: clockFaceContainer.frame.size, centerRadius: 4)
 			clockFace!.frame = CGRect(x: 0, y: 0, width: clockFaceContainer.frame.width, height: clockFaceContainer.frame.width)
 			clockFaceContainer.addSubview(clockFace!)
 		}
