@@ -144,7 +144,7 @@ class TimerView: UILabel {
 			secondaryLabel.text = text! + String(format: ".%0.1d", ms)
 		}
 		for prettySecondaryLabel in prettySecondaryLabels {
-			prettySecondaryLabel.text = NSDateComponentsFormatter.prettyFormattedInterval(interval)
+			prettySecondaryLabel.text = interval.prettyFormat()
 		}
     }
 

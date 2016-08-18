@@ -78,7 +78,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		
 		let date = NSDate(timeIntervalSince1970: timer.duration)
-		cell.durationLabel.text = NSDateComponentsFormatter.prettyFormattedInterval(timer.duration)
+		cell.durationLabel.text = timer.duration.prettyFormat()
 		cell.detailsLabel.text = date.shortFormat()
 		
 		return cell
