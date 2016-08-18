@@ -237,7 +237,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pou-uA-DQF">
-                                <rect key="frame" x="28" y="16" width="40" height="40"/>
+                                <rect key="frame" x="20" y="16" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="VQG-Wr-nrQ"/>
                                     <constraint firstAttribute="height" constant="40" id="eAh-V8-gx6"/>
@@ -250,7 +250,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="wiV-DH-G71" secondAttribute="trailing" constant="-20" id="Bja-qC-M9D"/>
                             <constraint firstItem="wiV-DH-G71" firstAttribute="leading" secondItem="Mwg-wg-Xso" secondAttribute="leadingMargin" constant="-20" id="KdT-TL-Sfe"/>
-                            <constraint firstItem="Pou-uA-DQF" firstAttribute="leading" secondItem="Mwg-wg-Xso" secondAttribute="leadingMargin" constant="8" id="RgB-bj-zmO"/>
+                            <constraint firstItem="Pou-uA-DQF" firstAttribute="leading" secondItem="Mwg-wg-Xso" secondAttribute="leadingMargin" id="RgB-bj-zmO"/>
                             <constraint firstItem="Xtc-ep-PqI" firstAttribute="top" secondItem="wiV-DH-G71" secondAttribute="bottom" id="fpQ-ez-um2"/>
                             <constraint firstItem="Pou-uA-DQF" firstAttribute="top" secondItem="KZc-K3-iCw" secondAttribute="bottom" constant="16" id="hab-PU-eXh"/>
                             <constraint firstItem="wiV-DH-G71" firstAttribute="top" secondItem="KZc-K3-iCw" secondAttribute="bottom" constant="50" id="wN9-gI-Qe9"/>
