@@ -284,16 +284,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add your comment..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bnx-Wr-68S">
-                                <rect key="frame" x="20" y="36" width="560" height="169"/>
+                                <rect key="frame" x="20" y="36" width="560" height="145"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc5-ap-Xjp">
-                                <rect key="frame" x="160" y="280" width="280" height="30"/>
+                                <rect key="frame" x="160" y="264" width="280" height="46"/>
                                 <color key="backgroundColor" red="0.94117647058823528" green="0.4823529411764706" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="XGh-ZL-wfb"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="goo-Qm-7Gk"/>
                                     <constraint firstAttribute="width" constant="280" id="ip1-TT-WNB"/>
                                 </constraints>
                                 <state key="normal" title="Send">
@@ -303,18 +303,36 @@
                                     <action selector="sendButtonClick:" destination="DlC-or-vqM" eventType="touchUpInside" id="7ln-d6-QPD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfY-CQ-2Sq">
+                                <rect key="frame" x="160" y="202" width="280" height="46"/>
+                                <color key="backgroundColor" red="0.76078431372549016" green="0.74901960784313726" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="msy-Uf-E9G"/>
+                                    <constraint firstAttribute="width" constant="280" id="pnU-jh-ucU"/>
+                                </constraints>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonClick:" destination="DlC-or-vqM" eventType="touchUpInside" id="5Yj-kH-4Lp"/>
+                                    <action selector="sendButtonClick:" destination="DlC-or-vqM" eventType="touchUpInside" id="6bJ-8g-7ug"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="TfY-CQ-2Sq" firstAttribute="top" secondItem="bnx-Wr-68S" secondAttribute="bottom" constant="21" id="08X-5H-uVz"/>
                             <constraint firstItem="Vqo-bQ-b4D" firstAttribute="top" secondItem="Gc5-ap-Xjp" secondAttribute="bottom" constant="290" id="32D-X5-HNt"/>
                             <constraint firstItem="bnx-Wr-68S" firstAttribute="leading" secondItem="2Dp-V4-RLL" secondAttribute="leadingMargin" id="9oz-8Q-OSA"/>
-                            <constraint firstItem="Gc5-ap-Xjp" firstAttribute="top" secondItem="bnx-Wr-68S" secondAttribute="bottom" constant="75" id="Lcc-zc-yTE"/>
                             <constraint firstItem="bnx-Wr-68S" firstAttribute="trailing" secondItem="2Dp-V4-RLL" secondAttribute="trailingMargin" id="b8Y-o3-pDi"/>
+                            <constraint firstItem="TfY-CQ-2Sq" firstAttribute="centerX" secondItem="2Dp-V4-RLL" secondAttribute="centerX" id="edh-qL-ZMt"/>
                             <constraint firstItem="bnx-Wr-68S" firstAttribute="top" secondItem="sTZ-Qf-IvR" secondAttribute="bottom" constant="16" id="htZ-Dd-XnF"/>
+                            <constraint firstItem="Gc5-ap-Xjp" firstAttribute="top" secondItem="TfY-CQ-2Sq" secondAttribute="bottom" constant="16" id="t7v-Vp-xCS"/>
                             <constraint firstItem="Gc5-ap-Xjp" firstAttribute="centerX" secondItem="2Dp-V4-RLL" secondAttribute="centerX" id="v0p-bT-JfP"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="TfY-CQ-2Sq" id="PGR-be-lxd"/>
                         <outlet property="feedbackMessage" destination="bnx-Wr-68S" id="oon-Se-HgW"/>
                         <outlet property="sendButton" destination="Gc5-ap-Xjp" id="hvi-8t-66e"/>
                     </connections>
