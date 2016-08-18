@@ -96,12 +96,12 @@ extension NSTimeInterval {
         let hours = (ti / 3600)
         
         if hours > 0 {
-            return String(format: "%0.2d h %0.2d min %0.2d sec", hours, minutes, seconds)
+            return String(format: "%d h %d min %d sec", hours, minutes, seconds)
         }
         if minutes > 0 {
-            return String(format: "%0.2d min %0.2d sec", minutes, seconds)
+            return String(format: "%d min %d sec", minutes, seconds)
         }
-        return String(format: "%0.2d sec", seconds)
+        return String(format: "%d sec", seconds)
 	}
 	
 }
