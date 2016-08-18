@@ -89,7 +89,7 @@ class Datastore {
 	}
 	
 	func saveTimer(date: NSDate, duration: Double) {
-        if(duration == 0){
+        if duration == 0{
             return
         }
 
