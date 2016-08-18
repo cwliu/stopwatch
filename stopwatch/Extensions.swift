@@ -75,7 +75,7 @@ extension NSDate {
 	}
 	
 	func shortFormat() -> String {
-		return format("HH:mm:ss:S")
+		return format("HH:mm:ss.S")
 	}
 	
 	func format(format: String) -> String {
@@ -87,14 +87,21 @@ extension NSDate {
 	
 }
 
-extension NSDateComponentsFormatter {
+extension NSTimeInterval {
 	
-	class func prettyFormattedInterval(interval: NSTimeInterval) -> String? {
-		let formatter = NSDateComponentsFormatter()
-		formatter.unitsStyle = .Short
-		formatter.allowedUnits = [.Second, .Minute, .Hour]
-		
-		return formatter.stringFromTimeInterval(abs(interval))
+    func prettyFormat() -> String? {
+        let ti = NSInteger(abs(self))
+        let seconds = ti % 60
+        let minutes = (ti / 60) % 60
+        let hours = (ti / 3600)
+        
+        if hours > 0 {
+            return String(format: "%d h %d min %d sec", hours, minutes, seconds)
+        }
+        if minutes > 0 {
+            return String(format: "%d min %d sec", minutes, seconds)
+        }
+        return String(format: "%d sec", seconds)
 	}
 	
 }

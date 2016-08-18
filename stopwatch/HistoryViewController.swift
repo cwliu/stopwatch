@@ -43,7 +43,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		if clockFace == nil {
-			clockFace = ClockFace(containerSize: clockFaceContainer.frame.size)
+            clockFace = ClockFace(containerSize: clockFaceContainer.frame.size, centerRadius: 4)
 			clockFace!.frame = CGRect(x: 0, y: 0, width: clockFaceContainer.frame.width, height: clockFaceContainer.frame.width)
 			clockFaceContainer.addSubview(clockFace!)
 		}
@@ -78,7 +78,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 		
 		
 		let date = NSDate(timeIntervalSince1970: timer.duration)
-		cell.durationLabel.text = NSDateComponentsFormatter.prettyFormattedInterval(timer.duration)
+		cell.durationLabel.text = timer.duration.prettyFormat()
 		cell.detailsLabel.text = date.shortFormat()
 		
 		return cell

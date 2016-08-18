@@ -89,6 +89,10 @@ class Datastore {
 	}
 	
 	func saveTimer(date: NSDate, duration: Double) {
+        if duration == 0{
+            return
+        }
+
 		let timer = NSEntityDescription.insertNewObjectForEntityForName(Timer.entityName, inManagedObjectContext: managedObjectContext) as! Timer
 		timer.date = date
 		timer.duration = duration
