@@ -99,7 +99,7 @@ class TimerViewController: UIViewController {
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if (motion == .MotionShake && !timer.timer.valid){
+        if (motion == .MotionShake && !timer.timer.valid && abs(timer.interval) > 0){
             reset()
         }
     }
