@@ -20,9 +20,9 @@ class TimerViewController: UIViewController {
 	
 	var delegate: TimerDelegate?
     
-    var isEnjoyDialog: UIAlertController!
-    var askRatingDialog: UIAlertController!
-    var askFeedbackDialog: UIAlertController!
+    var isEnjoyDialog: UIView!
+    var askRatingDialog: UIView!
+    var askFeedbackDialog: UIView!
     
     //MARK: Actions
     @IBAction func timerAction(sender: UITapGestureRecognizer) {
@@ -115,62 +115,69 @@ class TimerViewController: UIViewController {
 	
     func setupDialog(){
         
-        isEnjoyDialog = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        askRatingDialog = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        askFeedbackDialog = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        isEnjoyDialog = createDialog(
+            "Enjoying Stopwatch?",
+            yesString: "Yes!", noString: "Not really",
+            yesCallback: #selector(self.enjoyYesClick),
+            noCallbalk: #selector(self.enjoyNoClick),
+            titleHeight: 30
+        )
         
-        configDialog(isEnjoyDialog, title: "\nEnjoying Stopwatch?\n\n\n\n\n\n\n\n",
-                     yesString: "Yes!", noString: "Not really",
-                     yesCallback: #selector(self.enjoyYesClick), noCallbalk: #selector(self.enjoyNoClick),
-                     titleHeight: 66
+        askRatingDialog = createDialog(
+            "Would you mind taking a moment\nto rate it in the App Store?",
+            yesString: "Ok, sure", noString: "No, thanks",
+            yesCallback: #selector(self.ratingYesClick),
+            noCallbalk: #selector(self.ratingNoClick),
+            titleHeight: 49
         )
 
-        configDialog(askRatingDialog, title: "\nWould you mind taking a moment to rate it in the App Store?\n\n\n\n\n\n\n\n",
-                     yesString: "Ok, sure", noString: "No, thanks",
-                     yesCallback: #selector(self.ratingYesClick), noCallbalk: #selector(self.ratingNoClick),
-                     titleHeight: 110
+        askFeedbackDialog = createDialog(
+            "Would you mind giving us some feedback?",
+            yesString: "Ok, sure", noString: "No, thanks",
+            yesCallback: #selector(self.feedbackYesClick),
+            noCallbalk: #selector(self.feedbackNoClick),
+            titleHeight: 49
         )
-        
-        configDialog(askFeedbackDialog, title: "\nWould you mind giving us some feedback?\n\n\n\n\n\n\n\n",
-                     yesString: "Ok, sure", noString: "No, thanks",
-                     yesCallback: #selector(self.feedbackYesClick), noCallbalk: #selector(self.feedbackNoClick),
-                     titleHeight: 90
-        )
-        
     }
     
-    func configDialog(alert: UIAlertController, title: String, yesString: String, noString: String,
-                      yesCallback: Selector, noCallbalk: Selector, titleHeight: CGFloat){
-        let margin:CGFloat = 20.0
+    func createDialog(titleString: String, yesString: String, noString: String,
+                      yesCallback: Selector, noCallbalk: Selector, titleHeight: Int) -> UIView {
         
-        let isEnjoyTitle = NSAttributedString(string: title, attributes: [
-            NSFontAttributeName : UIFont.systemFontOfSize(20),
-            NSForegroundColorAttributeName : UIColor(red: 32/255.0, green: 31/255.0, blue: 61/255.0, alpha: 1)
-            ])
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
         
-        alert.setValue(isEnjoyTitle, forKey: "attributedTitle")
-        alert.view.alpha = 1
-        let isEnjoyCancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(isEnjoyCancelAction)
+        let margin = 20
+        let dialogHeight = 170
         
+        let dialogView = UIView(frame: CGRect(
+            x: 0,y: Int(screenHeight) - dialogHeight - titleHeight,
+            width: Int(screenWidth), height: dialogHeight + titleHeight))
+        dialogView.backgroundColor = UIColor.whiteColor()
+        dialogView.layer.cornerRadius = 5
         
-        let noRect = CGRectMake(margin, margin + titleHeight, alert.view.bounds.size.width - margin * 3, 50.0)
-        let noButton = UIButton(frame: noRect)
-        noButton.backgroundColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1.0)
-        noButton.addTarget(self, action: noCallbalk, forControlEvents: .TouchUpInside)
-        noButton.layer.cornerRadius = 7
+        let title = UITextView(frame: CGRect(x: margin, y: 24, width: Int(screenWidth) - 2 * margin,height: titleHeight))
+        title.text = titleString
+        title.font = UIFont(name: title.font!.fontName, size: 16)
+        title.textAlignment = NSTextAlignment.Center
+        
+        dialogView.addSubview(title)
+        let noButton = UIButton(frame: CGRect(x: margin, y: 47 + titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
         noButton.setTitle(noString, forState: UIControlState.Normal)
-        alert.view.addSubview(noButton)
+        noButton.backgroundColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1)
+        noButton.addTarget(self, action: noCallbalk, forControlEvents: .TouchUpInside)
+        noButton.titleLabel?.font = UIFont(name: noButton.titleLabel!.font!.fontName, size: 16)
+        noButton.layer.cornerRadius = 4
+        dialogView.addSubview(noButton)
         
-        
-        let yesRect = CGRectMake(margin, margin + titleHeight + 70, alert.view.bounds.size.width - margin * 3.0, 50.0)
-        let yesButton = UIButton(frame: yesRect)
-        yesButton.backgroundColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1.0)
-        yesButton.addTarget(self, action: yesCallback, forControlEvents: .TouchUpInside)
-        yesButton.layer.cornerRadius = 7
+        let yesButton = UIButton(frame: CGRect(x: margin, y: 109 + titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
         yesButton.setTitle(yesString, forState: UIControlState.Normal)
-        alert.view.addSubview(yesButton)
+        yesButton.backgroundColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1)
+        yesButton.addTarget(self, action: yesCallback, forControlEvents: .TouchUpInside)
+        yesButton.titleLabel?.font = UIFont(name: yesButton.titleLabel!.font!.fontName, size: 16)
+        yesButton.layer.cornerRadius = 4
+        dialogView.addSubview(yesButton)
         
+        return dialogView
     }
     
 	func refreshHistoryHint() {
@@ -217,39 +224,39 @@ class TimerViewController: UIViewController {
 
     func rateApp() {
         settings.hasAskedFeedback = true
-        self.presentViewController(isEnjoyDialog, animated: true, completion: nil)
+        self.view.addSubview(isEnjoyDialog)
     }
     
     func enjoyYesClick(){
-        isEnjoyDialog.dismissViewControllerAnimated(true, completion: nil)
-        self.presentViewController(askRatingDialog, animated: true, completion: nil)
+        isEnjoyDialog.removeFromSuperview()
+        self.view.addSubview(askRatingDialog)
     }
 
     func enjoyNoClick(){
-        isEnjoyDialog.dismissViewControllerAnimated(true, completion: nil)
-        self.presentViewController(askFeedbackDialog, animated: true, completion: nil)
+        isEnjoyDialog.removeFromSuperview()
+        self.view.addSubview(askFeedbackDialog)
     }
     
     func ratingYesClick(){
         let appId = "id1126783712"
 
-        askRatingDialog.dismissViewControllerAnimated(true, completion: nil)
+        askRatingDialog.removeFromSuperview()
         UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
     }
     
     func ratingNoClick(){
-        askRatingDialog.dismissViewControllerAnimated(true, completion: nil)
+        askRatingDialog.removeFromSuperview()
     }
     
     func feedbackYesClick(){
-        askFeedbackDialog.dismissViewControllerAnimated(true, completion: nil)
+        askFeedbackDialog.removeFromSuperview()
         
         let feedbackViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FeedbackController") as! FeedbackViewController
         self.presentViewController(feedbackViewController, animated: true, completion: nil)
     }
 
     func feedbackNoClick(){
-        askFeedbackDialog.dismissViewControllerAnimated(true, completion: nil)
+        askFeedbackDialog.removeFromSuperview()
     }
 
     func confirmReset() {
