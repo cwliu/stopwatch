@@ -142,8 +142,6 @@ class TimerViewController: UIViewController {
 	}
 
     func meetRatingCriteria() -> Bool{
-        return true
-        
         if(settings.hasAskedFeedback){
             return false
         }
