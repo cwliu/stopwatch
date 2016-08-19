@@ -25,6 +25,20 @@ class FeedbackViewController: UIViewController, UITextViewDelegate {
         
         sendButton.layer.cornerRadius = 5
         cancelButton.layer.cornerRadius = 5
+        
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+
+        
+        let whiteBgView = UIView(frame: CGRect(x: 0, y: 16, width: screenWidth, height: screenHeight))
+        whiteBgView.backgroundColor = UIColor.whiteColor()
+        whiteBgView.layer.cornerRadius = 6
+
+        let topDarkBgView = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 30))
+        topDarkBgView.backgroundColor =  AppDelegate.instance.colorScheme.backgroundColor
+        
+        self.view.insertSubview(topDarkBgView, atIndex: 0)
+        self.view.insertSubview(whiteBgView, atIndex: 1)
     }
 
     override func viewWillAppear(animated: Bool) {
