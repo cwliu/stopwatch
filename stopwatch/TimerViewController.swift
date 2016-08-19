@@ -267,7 +267,7 @@ class TimerViewController: UIViewController {
             let margin = 20
             
             dialogView.backgroundColor = UIColor.whiteColor()
-            dialogView.layer.cornerRadius = 5
+            dialogView.layer.cornerRadius = 6
             
             let titleTextView = UITextView(frame: CGRect(x: margin, y: 20, width: Int(screenWidth) - 2 * margin,height: 50))
             titleTextView.text = title
