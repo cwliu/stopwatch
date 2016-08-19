@@ -96,6 +96,7 @@ class TimerViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		becomeFirstResponder()
+        
         setupDialog()
 	}
 	
@@ -113,73 +114,6 @@ class TimerViewController: UIViewController {
         }
     }
 	
-    func setupDialog(){
-        
-        isEnjoyDialog = createDialog(
-            "Enjoying Stopwatch?",
-            yesString: "Yes!", noString: "Not really",
-            yesCallback: #selector(self.enjoyYesClick),
-            noCallbalk: #selector(self.enjoyNoClick),
-            titleHeight: 30
-        )
-        
-        askRatingDialog = createDialog(
-            "Would you mind taking a moment\nto rate it in the App Store?",
-            yesString: "Ok, sure", noString: "No, thanks",
-            yesCallback: #selector(self.ratingYesClick),
-            noCallbalk: #selector(self.ratingNoClick),
-            titleHeight: 49
-        )
-
-        askFeedbackDialog = createDialog(
-            "Would you mind giving us some feedback?",
-            yesString: "Ok, sure", noString: "No, thanks",
-            yesCallback: #selector(self.feedbackYesClick),
-            noCallbalk: #selector(self.feedbackNoClick),
-            titleHeight: 49
-        )
-    }
-    
-    func createDialog(titleString: String, yesString: String, noString: String,
-                      yesCallback: Selector, noCallbalk: Selector, titleHeight: Int) -> UIView {
-        
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let screenHeight = UIScreen.mainScreen().bounds.size.height
-        
-        let margin = 20
-        let dialogHeight = 170
-        
-        let dialogView = UIView(frame: CGRect(
-            x: 0,y: Int(screenHeight) - dialogHeight - titleHeight,
-            width: Int(screenWidth), height: dialogHeight + titleHeight))
-        dialogView.backgroundColor = UIColor.whiteColor()
-        dialogView.layer.cornerRadius = 5
-        
-        let title = UITextView(frame: CGRect(x: margin, y: 24, width: Int(screenWidth) - 2 * margin,height: titleHeight))
-        title.text = titleString
-        title.font = UIFont(name: title.font!.fontName, size: 16)
-        title.textAlignment = NSTextAlignment.Center
-        
-        dialogView.addSubview(title)
-        let noButton = UIButton(frame: CGRect(x: margin, y: 47 + titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
-        noButton.setTitle(noString, forState: UIControlState.Normal)
-        noButton.backgroundColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1)
-        noButton.addTarget(self, action: noCallbalk, forControlEvents: .TouchUpInside)
-        noButton.titleLabel?.font = UIFont(name: noButton.titleLabel!.font!.fontName, size: 16)
-        noButton.layer.cornerRadius = 4
-        dialogView.addSubview(noButton)
-        
-        let yesButton = UIButton(frame: CGRect(x: margin, y: 109 + titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
-        yesButton.setTitle(yesString, forState: UIControlState.Normal)
-        yesButton.backgroundColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1)
-        yesButton.addTarget(self, action: yesCallback, forControlEvents: .TouchUpInside)
-        yesButton.titleLabel?.font = UIFont(name: yesButton.titleLabel!.font!.fontName, size: 16)
-        yesButton.layer.cornerRadius = 4
-        dialogView.addSubview(yesButton)
-        
-        return dialogView
-    }
-    
 	func refreshHistoryHint() {
 		if historyHintView.hidden && settings.showHistoryHint {
 			historyHintView.hidden = false
@@ -208,6 +142,8 @@ class TimerViewController: UIViewController {
 	}
 
     func meetRatingCriteria() -> Bool{
+        return true
+        
         if(settings.hasAskedFeedback){
             return false
         }
@@ -221,44 +157,7 @@ class TimerViewController: UIViewController {
             return false
         }
     }
-
-    func rateApp() {
-        settings.hasAskedFeedback = true
-        self.view.addSubview(isEnjoyDialog)
-    }
     
-    func enjoyYesClick(){
-        isEnjoyDialog.removeFromSuperview()
-        self.view.addSubview(askRatingDialog)
-    }
-
-    func enjoyNoClick(){
-        isEnjoyDialog.removeFromSuperview()
-        self.view.addSubview(askFeedbackDialog)
-    }
-    
-    func ratingYesClick(){
-        let appId = "id1126783712"
-
-        askRatingDialog.removeFromSuperview()
-        UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
-    }
-    
-    func ratingNoClick(){
-        askRatingDialog.removeFromSuperview()
-    }
-    
-    func feedbackYesClick(){
-        askFeedbackDialog.removeFromSuperview()
-        
-        let feedbackViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FeedbackController") as! FeedbackViewController
-        self.presentViewController(feedbackViewController, animated: true, completion: nil)
-    }
-
-    func feedbackNoClick(){
-        askFeedbackDialog.removeFromSuperview()
-    }
-
     func confirmReset() {
         let confirmDialog = UIAlertController(title: "Reset", message: "Do you want to reset the timer?", preferredStyle: .Alert)
         confirmDialog.addAction(UIAlertAction(title: "Reset", style: .Default, handler: { action in
@@ -279,4 +178,111 @@ class TimerViewController: UIViewController {
 	@IBAction func showHistory() {
 		delegate?.showHistory()
 	}
+    
+    func setupDialog(){
+        isEnjoyDialog = createDialog(
+            "Enjoying Stopwatch?", titleHeight: 67,
+            yesString: "Yes!", yesCallback: #selector(self.enjoyYesClick),
+            noString: "Not really", noCallbalk: #selector(self.enjoyNoClick)
+        )
+        
+        askRatingDialog = createDialog(
+            "Would you mind taking a moment\nto rate it in the App Store?", titleHeight: 86,
+            yesString: "Ok, sure", yesCallback: #selector(self.ratingYesClick),
+            noString: "No, thanks", noCallbalk: #selector(self.ratingNoClick)
+        )
+        askFeedbackDialog = createDialog(
+            "Would you mind giving us some feedback?", titleHeight: 86,
+            yesString: "Ok, sure", yesCallback: #selector(self.feedbackYesClick),
+            noString: "No, thanks", noCallbalk: #selector(self.feedbackNoClick)
+        )
+    }
+    
+    func rateApp() {
+        settings.hasAskedFeedback = true
+        
+        self.view.addSubview(isEnjoyDialog)
+    }
+
+    
+    func enjoyYesClick(){
+        isEnjoyDialog.superview?.addSubview(askRatingDialog)
+        isEnjoyDialog.removeFromSuperview()
+    }
+    
+    func enjoyNoClick(){
+        isEnjoyDialog.superview?.addSubview(askFeedbackDialog)
+        isEnjoyDialog.removeFromSuperview()
+    }
+    
+    func ratingYesClick(){
+        let appId = "id1126783712"
+        
+        askRatingDialog.removeFromSuperview()
+        UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
+    }
+    
+    func ratingNoClick(){
+        askRatingDialog.removeFromSuperview()
+    }
+    
+    func feedbackYesClick(){
+        askFeedbackDialog.removeFromSuperview()
+        
+        let feedbackViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FeedbackController")
+            as! FeedbackViewController
+        self.presentViewController(feedbackViewController, animated: true, completion: nil)
+    }
+    
+    func feedbackNoClick(){
+        askFeedbackDialog.removeFromSuperview()
+    }
+    
+    func createDialog(title: String, titleHeight: Int,
+                      yesString: String, yesCallback: Selector,
+                      noString: String, noCallbalk: Selector) -> UIView {
+        
+            let buttonAreaHeight = 132
+            let screenWidth = UIScreen.mainScreen().bounds.size.width
+            let screenHeight = UIScreen.mainScreen().bounds.size.height
+            
+            let frame = CGRect(
+                x: 0,
+                y: Int(screenHeight) - buttonAreaHeight - titleHeight,
+                width: Int(screenWidth),
+                height: buttonAreaHeight + titleHeight
+            )
+        
+            let dialogView = UIView(frame: frame)
+            let margin = 20
+            
+            dialogView.backgroundColor = UIColor.whiteColor()
+            dialogView.layer.cornerRadius = 5
+            
+            let titleTextView = UITextView(frame: CGRect(x: margin, y: 20, width: Int(screenWidth) - 2 * margin,height: 50))
+            titleTextView.text = title
+            titleTextView.font = UIFont(name: titleTextView.font!.fontName, size: 16)
+            titleTextView.textAlignment = NSTextAlignment.Center
+            
+            dialogView.addSubview(titleTextView)
+            
+            let noButton = UIButton(frame: CGRect(x: margin, y: titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
+            noButton.setTitle(noString, forState: UIControlState.Normal)
+            noButton.backgroundColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1)
+            noButton.addTarget(self, action: noCallbalk, forControlEvents: .TouchUpInside)
+            noButton.titleLabel?.font = UIFont(name: noButton.titleLabel!.font!.fontName, size: 16)
+            noButton.layer.cornerRadius = 4
+            dialogView.addSubview(noButton)
+            
+            let yesButton = UIButton(frame: CGRect(x: margin, y: 62 + titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
+            yesButton.setTitle(yesString, forState: UIControlState.Normal)
+            yesButton.backgroundColor = UIColor(red: 240/255.0, green: 123/255.0, blue: 63/255.0, alpha: 1)
+            yesButton.addTarget(self, action: yesCallback, forControlEvents: .TouchUpInside)
+            yesButton.titleLabel?.font = UIFont(name: yesButton.titleLabel!.font!.fontName, size: 16)
+            yesButton.layer.cornerRadius = 4
+            dialogView.addSubview(yesButton)
+        
+    
+        return dialogView
+    }
 }
