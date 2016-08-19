@@ -82,11 +82,31 @@ class TimerViewController: UIViewController {
             })
         }
 		
-		historyButton.setImage(AppDelegate.instance.colorScheme.historyButton, forState: .Normal)
-		historyHintArrow.image = AppDelegate.instance.colorScheme.historyHintArrow
-		historyHintCircles.image = AppDelegate.instance.colorScheme.historyHintCircles
-		
-		refreshHistoryHint()
+        setColor()
+        refreshHistoryHint()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.setColor),
+            name: UIApplicationWillEnterForegroundNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func setColor(){
+        timer.setColorScheme()
+        clockFace.setColorScheme()
+        
+        historyButton.setImage(AppDelegate.instance.colorScheme.historyButton, forState: .Normal)
+        historyHintArrow.image = AppDelegate.instance.colorScheme.historyHintArrow
+        historyHintCircles.image = AppDelegate.instance.colorScheme.historyHintCircles
     }
 	
 	override func viewDidAppear(animated: Bool) {

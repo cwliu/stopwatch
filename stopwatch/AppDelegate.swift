@@ -12,14 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-	var colorScheme: ColorScheme {
-		let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
-		let isDay = hour < 20 && hour > 8
-		
-		return isDay ? ColorSchemes.dayScheme : ColorSchemes.nightScheme
-	}
-	
+    
+    static func isDay() -> Bool{
+        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        return hour < 20 && hour > 8
+    }
+    
+    var colorScheme: ColorScheme = AppDelegate.isDay() ? ColorSchemes.dayScheme : ColorSchemes.nightScheme
+    
 	static var instance: AppDelegate {
 		return UIApplication.sharedApplication().delegate as! AppDelegate
 	}
@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        colorScheme = AppDelegate.isDay() ? ColorSchemes.dayScheme : ColorSchemes.nightScheme
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

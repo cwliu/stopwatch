@@ -33,9 +33,29 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = AppDelegate.instance.colorScheme.backgroundColor
+        setColor()
 	}
 	
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(
+            self, selector: #selector(self.setColor),
+            name: UIApplicationWillEnterForegroundNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func setColor(){
+        self.view.backgroundColor = AppDelegate.instance.colorScheme.backgroundColor
+    }
+
+       
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		scrollView.contentSize = CGSize(width: view.frame.width * 2, height: view.frame.height)

@@ -28,11 +28,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		backButton.setImage(AppDelegate.instance.colorScheme.backButton, forState: .Normal)
-		currentDurationLabel.textColor = AppDelegate.instance.colorScheme.textColor
-		currentDetailsLabel.textColor = AppDelegate.instance.colorScheme.secondaryTextColor
-		topSeparatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
-		
+        setColor()
+
 		tableViewHeader = tableView.tableHeaderView!
 		
 		hideCurrentTimerView()
@@ -48,6 +45,31 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
 			clockFaceContainer.addSubview(clockFace!)
 		}
 	}
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.setColor),
+            name: UIApplicationWillEnterForegroundNotification, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func setColor(){
+        clockFace?.setColorScheme()
+        backButton.setImage(AppDelegate.instance.colorScheme.backButton, forState: .Normal)
+        currentDurationLabel.textColor = AppDelegate.instance.colorScheme.textColor
+        currentDetailsLabel.textColor = AppDelegate.instance.colorScheme.secondaryTextColor
+        topSeparatorView.backgroundColor = AppDelegate.instance.colorScheme.separatorColor
+        
+        tableView.reloadData()
+    }
+
 	
 	func hideCurrentTimerView() {
 		tableView.tableHeaderView = nil
