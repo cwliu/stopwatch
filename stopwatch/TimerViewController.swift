@@ -245,7 +245,18 @@ class TimerViewController: UIViewController {
             let buttonAreaHeight = 132
             let screenWidth = UIScreen.mainScreen().bounds.size.width
             let screenHeight = UIScreen.mainScreen().bounds.size.height
-            
+        
+            let fullScreen = CGRect(
+                x: 0,
+                y: 0,
+                width: screenWidth,
+                height: screenHeight
+            )
+            let canvasView = UIView(frame: fullScreen)
+        
+            let tap = UITapGestureRecognizer(target: self, action: nil)
+            canvasView.addGestureRecognizer(tap)
+        
             let frame = CGRect(
                 x: 0,
                 y: Int(screenHeight) - buttonAreaHeight - titleHeight,
@@ -254,6 +265,7 @@ class TimerViewController: UIViewController {
             )
         
             let dialogView = UIView(frame: frame)
+            canvasView.addSubview(dialogView)
             let margin = 20
             
             dialogView.backgroundColor = UIColor.whiteColor()
@@ -283,6 +295,6 @@ class TimerViewController: UIViewController {
             dialogView.addSubview(yesButton)
         
     
-        return dialogView
+        return canvasView
     }
 }
