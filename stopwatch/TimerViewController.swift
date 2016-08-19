@@ -142,6 +142,7 @@ class TimerViewController: UIViewController {
 	}
 
     func meetRatingCriteria() -> Bool{
+        
         if(settings.hasAskedFeedback){
             return false
         }
@@ -189,8 +190,10 @@ class TimerViewController: UIViewController {
             yesString: "Ok, sure", yesCallback: #selector(self.ratingYesClick),
             noString: "No, thanks", noCallbalk: #selector(self.ratingNoClick)
         )
+
+        let feedbackTitleHeight = AppDelegate.isIPhone5orLower() ? 86 : 67
         askFeedbackDialog = createDialog(
-            "Would you mind giving us some feedback?", titleHeight: 86,
+            "Would you mind giving us some feedback?", titleHeight: feedbackTitleHeight,
             yesString: "Ok, sure", yesCallback: #selector(self.feedbackYesClick),
             noString: "No, thanks", noCallbalk: #selector(self.feedbackNoClick)
         )
@@ -275,8 +278,9 @@ class TimerViewController: UIViewController {
             titleTextView.textAlignment = NSTextAlignment.Center
             
             dialogView.addSubview(titleTextView)
-            
-            let noButton = UIButton(frame: CGRect(x: margin, y: titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
+        
+            let noButton = UIButton(frame: CGRect(
+                x: margin, y: titleHeight, width: Int(screenWidth) - 2 * margin, height: 46))
             noButton.setTitle(noString, forState: UIControlState.Normal)
             noButton.backgroundColor = UIColor(red: 255/255.0, green: 212/255.0, blue: 96/255.0, alpha: 1)
             noButton.addTarget(self, action: noCallbalk, forControlEvents: .TouchUpInside)
