@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iD7-Ys-U18">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iD7-Ys-U18">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -284,13 +284,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add your comment..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bnx-Wr-68S">
-                                <rect key="frame" x="20" y="36" width="560" height="145"/>
+                                <rect key="frame" x="20" y="36" width="560" height="405"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc5-ap-Xjp">
-                                <rect key="frame" x="160" y="264" width="280" height="46"/>
+                                <rect key="frame" x="160" y="524" width="280" height="46"/>
                                 <color key="backgroundColor" red="0.94117647058823528" green="0.4823529411764706" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="goo-Qm-7Gk"/>
@@ -304,7 +304,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfY-CQ-2Sq">
-                                <rect key="frame" x="160" y="202" width="280" height="46"/>
+                                <rect key="frame" x="160" y="462" width="280" height="46"/>
                                 <color key="backgroundColor" red="0.76078431372549016" green="0.74901960784313726" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="msy-Uf-E9G"/>
@@ -322,7 +322,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TfY-CQ-2Sq" firstAttribute="top" secondItem="bnx-Wr-68S" secondAttribute="bottom" constant="21" id="08X-5H-uVz"/>
-                            <constraint firstItem="Vqo-bQ-b4D" firstAttribute="top" secondItem="Gc5-ap-Xjp" secondAttribute="bottom" constant="290" id="32D-X5-HNt"/>
+                            <constraint firstItem="Vqo-bQ-b4D" firstAttribute="top" secondItem="Gc5-ap-Xjp" secondAttribute="bottom" constant="30" id="32D-X5-HNt"/>
                             <constraint firstItem="bnx-Wr-68S" firstAttribute="leading" secondItem="2Dp-V4-RLL" secondAttribute="leadingMargin" id="9oz-8Q-OSA"/>
                             <constraint firstItem="bnx-Wr-68S" firstAttribute="trailing" secondItem="2Dp-V4-RLL" secondAttribute="trailingMargin" id="b8Y-o3-pDi"/>
                             <constraint firstItem="TfY-CQ-2Sq" firstAttribute="centerX" secondItem="2Dp-V4-RLL" secondAttribute="centerX" id="edh-qL-ZMt"/>
