@@ -11,6 +11,7 @@
     private let hasResetKey = "hasReset"
 	private let showHistoryHintKey = "showHistoryHint"
     private let hasAskedFeedbackKey = "hasAskedFeedback"
+    private let usageDayKey = "usageDayKey"
 
     private lazy var defaultValues : NSDictionary = [
             self.hasStartedKey : false,
@@ -18,7 +19,8 @@
             self.hasResetKey : false,
             self.showHistoryHintKey: false,
             self.lastOpenedKey: NSDate(),
-            self.hasAskedFeedbackKey: false
+            self.hasAskedFeedbackKey: false,
+            self.usageDayKey: 1,
     ]
 
     var lastOpened : NSDate! {
@@ -75,6 +77,15 @@
         }
     }
 
+    var usageDay: Int {
+        set {
+            defaults.setInteger(newValue, forKey: usageDayKey)
+        }
+        get {
+            return defaults.integerForKey(usageDayKey)
+        }
+    }
+
     init (){
         defaults.registerDefaults(defaultValues as! [String : AnyObject])
         resetIfMoreThanWeekOld()
@@ -83,7 +94,23 @@
     func resetIfMoreThanWeekOld () {
         let weekInSeconds = 604800.0 //week in seconds
 
-        let interval = NSDate().timeIntervalSinceDate(lastOpened)
+        let now = NSDate()
+
+        let lastOpenedComponents = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: lastOpened)
+        let lastOpenedYear =  lastOpenedComponents.year
+        let lastOpenedMonth = lastOpenedComponents.month
+        let lastOpenedDay = lastOpenedComponents.day
+
+        let nowComponents = NSCalendar.currentCalendar().components([.Day , .Month , .Year], fromDate: now)
+        let nowYear =  nowComponents.year
+        let nowMonth = nowComponents.month
+        let nowDay = nowComponents.day
+
+        if(nowDay != lastOpenedDay || nowMonth != lastOpenedMonth || nowYear != lastOpenedYear){
+            usageDay += 1
+        }
+
+        let interval = now.timeIntervalSinceDate(lastOpened)
 
         if(interval > weekInSeconds){
             restoreDefaults()
@@ -98,6 +125,7 @@
         hasStopped = defaultValues[hasStoppedKey] as! Bool
         hasReset = defaultValues[hasResetKey] as! Bool
 		showHistoryHint = defaultValues[showHistoryHintKey] as! Bool
-        hasAskedFeedback = defaultValues[hasAskedFeedbackKey] as! Bool
+        // hasAskedFeedback not restore to default
+        // usageDay not restore to default
     }
  }

@@ -141,7 +141,7 @@ class TimerViewController: UIViewController {
         }
         
         let timers = Datastore.instance.fetchTimers()
-        if(timers.count >= 10){
+        if(timers.count >= 10 && settings.usageDay >= 3){
             return true
         }else{
             return false
@@ -165,7 +165,7 @@ class TimerViewController: UIViewController {
         let askRatingYesAction = UIAlertAction(title: "Ok, sure", style: .Default, handler: { action in
             UIApplication.sharedApplication().openURL(NSURL(string : "itms-apps://itunes.apple.com/app/" + appId)!)
         })
-        let askRatingNoAction = UIAlertAction(title: "No, thanks", style: .Cancel, handler: nil)
+        let askRatingNoAction = UIAlertAction(title: "No, thanks", style: .Default, handler: nil)
         askRatingDialog.addAction(askRatingNoAction)
         askRatingDialog.addAction(askRatingYesAction)
 
@@ -184,7 +184,7 @@ class TimerViewController: UIViewController {
             let feedbackViewController = self.storyboard?.instantiateViewControllerWithIdentifier("FeedbackController") as! FeedbackViewController
             self.presentViewController(feedbackViewController, animated: true, completion: nil)
         })
-        let feedbackNoAction = UIAlertAction(title: "No, thanks", style: .Cancel, handler: nil)
+        let feedbackNoAction = UIAlertAction(title: "No, thanks", style: .Default, handler: nil)
         askFeedbackDialog.addAction(feedbackNoAction)
         askFeedbackDialog.addAction(feedbackYesAction)
         
@@ -201,7 +201,7 @@ class TimerViewController: UIViewController {
             self.presentViewController(askRatingDialog, animated: true, completion: nil)
 
         })
-        let isEnjoyNoAction = UIAlertAction(title: "Not really", style: .Cancel, handler: { action in
+        let isEnjoyNoAction = UIAlertAction(title: "Not really", style: .Default, handler: { action in
             self.presentViewController(askFeedbackDialog, animated: true, completion: nil)
         })
 
